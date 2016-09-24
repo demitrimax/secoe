@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contratos>
+  <contrato>
+    <NoContrato>421001801</NoContrato>
+    <tarifa>101890</tarifa>
+    <finicio>2012-09-27</finicio>
+    <ffin>2015-01-30</ffin>
+    <equipoid>9352</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia/>
+    <equipo>MENADRILL II (A/E XLI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001840</NoContrato>
+    <tarifa>49999</tarifa>
+    <finicio>2011-07-09</finicio>
+    <ffin>2015-09-10</ffin>
+    <equipoid>9060</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>TODCO MÃXICO, INC.</nomcia>
+    <equipo>PLATFORM RIG 3 (MOD VI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001843</NoContrato>
+    <tarifa>184000</tarifa>
+    <finicio>2012-07-01</finicio>
+    <ffin>2015-03-25</ffin>
+    <equipoid>6043</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN YORKTOWN (S/S C)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001847</NoContrato>
+    <tarifa>90000</tarifa>
+    <finicio>2011-05-11</finicio>
+    <ffin>2015-11-30</ffin>
+    <equipoid>9088</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>PANUCO (A/E LXXXVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001847</NoContrato>
+    <tarifa>99450</tarifa>
+    <finicio>2011-05-11</finicio>
+    <ffin>2015-11-30</ffin>
+    <equipoid>9088</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>PANUCO (A/E LXXXVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001861</NoContrato>
+    <tarifa>68799</tarifa>
+    <finicio>2011-12-29</finicio>
+    <ffin>2015-03-31</ffin>
+    <equipoid>8000</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>NOBLE CARL NORBERG (A/E XXXVIII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001862</NoContrato>
+    <tarifa>49000</tarifa>
+    <finicio>2012-10-30</finicio>
+    <ffin>2015-11-14</ffin>
+    <equipoid>9363</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>BLAKE INTERNATIONAL USA RIG, LLC.</nomcia>
+    <equipo>BLAKE RIG 5 (MOD XVI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001867</NoContrato>
+    <tarifa>110000</tarifa>
+    <finicio>2012-02-23</finicio>
+    <ffin>2015-08-15</ffin>
+    <equipoid>9092</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>TONALA (A/E LVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001867</NoContrato>
+    <tarifa>129500</tarifa>
+    <finicio>2012-02-23</finicio>
+    <ffin>2015-08-15</ffin>
+    <equipoid>9092</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>TONALA (A/E LVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001868</NoContrato>
+    <tarifa>129500</tarifa>
+    <finicio>2012-05-31</finicio>
+    <ffin>2016-02-15</ffin>
+    <equipoid>9094</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>TUXPAN (A/E LXXXIX)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001870</NoContrato>
+    <tarifa>111999</tarifa>
+    <finicio>2012-02-24</finicio>
+    <ffin>2015-09-13</ffin>
+    <equipoid>6053</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>NOBLE BILL JENNINGS (A/E L)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001871</NoContrato>
+    <tarifa>70000</tarifa>
+    <finicio>2012-04-29</finicio>
+    <ffin>2016-04-03</ffin>
+    <equipoid>6055</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>NOBLE EDDIE PAUL</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001871</NoContrato>
+    <tarifa>111999</tarifa>
+    <finicio>2012-04-29</finicio>
+    <ffin>2016-04-03</ffin>
+    <equipoid>6055</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>NOBLE EDDIE PAUL</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002815</NoContrato>
+    <tarifa>130000</tarifa>
+    <finicio>2012-07-06</finicio>
+    <ffin>2016-09-03</ffin>
+    <equipoid>9020</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>COMPAÃIA PERFORADORA MEXICO S.A.P.I. DE C.V.</nomcia>
+    <equipo>HULL 106</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002816</NoContrato>
+    <tarifa>130000</tarifa>
+    <finicio>2012-11-17</finicio>
+    <ffin>2015-11-30</ffin>
+    <equipoid>9021</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA MEXICO, S.A.P.I. DE C.V.</nomcia>
+    <equipo>HULL 108 (ZACATECAS)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002816</NoContrato>
+    <tarifa>130000</tarifa>
+    <finicio>2012-11-17</finicio>
+    <ffin>2016-08-12</ffin>
+    <equipoid>9021</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA MEXICO, S.A.P.I. DE C.V.</nomcia>
+    <equipo>HULL 108 (ZACATECAS)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002817</NoContrato>
+    <tarifa>111999</tarifa>
+    <finicio>2012-09-15</finicio>
+    <ffin>2016-02-12</ffin>
+    <equipoid>6027</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>GOIMAR, S.A. DE C.V.</nomcia>
+    <equipo>SANDUNGA</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002834</NoContrato>
+    <tarifa>85000</tarifa>
+    <finicio>2012-06-20</finicio>
+    <ffin>2015-03-22</ffin>
+    <equipoid>6052</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>NOBLE EARL FREDERICKSON (A/E XCII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002835</NoContrato>
+    <tarifa>75000</tarifa>
+    <finicio>2012-05-07</finicio>
+    <ffin>2015-01-26</ffin>
+    <equipoid>9011</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>COMPAÃIA PERFORADORA MEXICO S.A.P.I. DE C.V.</nomcia>
+    <equipo>SONORA (A/E XLVIII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002836</NoContrato>
+    <tarifa>55000</tarifa>
+    <finicio>2012-06-22</finicio>
+    <ffin>2015-07-10</ffin>
+    <equipoid>6054</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>TOM JOBE (A/E XXI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002836</NoContrato>
+    <tarifa>85000</tarifa>
+    <finicio>2012-06-22</finicio>
+    <ffin>2015-07-10</ffin>
+    <equipoid>6054</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>TOM JOBE (A/E XXI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002847</NoContrato>
+    <tarifa>53500</tarifa>
+    <finicio>2012-09-27</finicio>
+    <ffin>2016-03-23</ffin>
+    <equipoid>9044</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>P-18 (MOD IV)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002852</NoContrato>
+    <tarifa>79999</tarifa>
+    <finicio>2014-05-15</finicio>
+    <ffin>2017-10-07</ffin>
+    <equipoid>201027</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA MEXICO, S.A.P.I. DE C.V.</nomcia>
+    <equipo>FIJO E2 (MODULAR TAMAULIPAS) ANTES ZACATECAS</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002859</NoContrato>
+    <tarifa>90200</tarifa>
+    <finicio>2014-08-11</finicio>
+    <ffin>2015-03-11</ffin>
+    <equipoid>9306</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>ENSCO DRILLING MÃXICO, LLC</nomcia>
+    <equipo>ENSCO-89</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002862</NoContrato>
+    <tarifa>90200</tarifa>
+    <finicio>2012-11-23</finicio>
+    <ffin>2015-10-07</ffin>
+    <equipoid>9305</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>ENSCO DRILLING MÃXICO, LLC</nomcia>
+    <equipo>ENSCO-93</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002864</NoContrato>
+    <tarifa>90200</tarifa>
+    <finicio>2012-12-12</finicio>
+    <ffin>2015-06-11</ffin>
+    <equipoid>9307</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>ENSCO DRILLING MÃXICO, LLC</nomcia>
+    <equipo>ENSCO-98</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002865</NoContrato>
+    <tarifa>38247</tarifa>
+    <finicio>2013-03-25</finicio>
+    <ffin>2015-11-02</ffin>
+    <equipoid>6016</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>SUPER SUNDOWNER XI (ALIG 1)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002866</NoContrato>
+    <tarifa>38247</tarifa>
+    <finicio>2013-05-26</finicio>
+    <ffin>2014-12-15</ffin>
+    <equipoid>6011</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>SUPER SUNDOWNER X</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002866</NoContrato>
+    <tarifa>38247</tarifa>
+    <finicio>2013-05-26</finicio>
+    <ffin>2015-04-15</ffin>
+    <equipoid>6011</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>SUPER SUNDOWNER X</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002867</NoContrato>
+    <tarifa>90200</tarifa>
+    <finicio>2013-10-02</finicio>
+    <ffin>2016-10-22</ffin>
+    <equipoid>9308</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>ENSCO DRILLING MÃXICO, LLC</nomcia>
+    <equipo>ENSCO-83</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003806</NoContrato>
+    <tarifa>101000</tarifa>
+    <finicio>2013-08-04</finicio>
+    <ffin>2016-06-04</ffin>
+    <equipoid>6050</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>JOHNNIE HOFFMAN (A/E G)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003813</NoContrato>
+    <tarifa>101000</tarifa>
+    <finicio>2013-06-04</finicio>
+    <ffin>2016-03-13</ffin>
+    <equipoid>6009</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PARAGON OFFSHORE CONTRACTING, S.A.R.L.</nomcia>
+    <equipo>JOHN-SANDIFER (A/E XI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003817</NoContrato>
+    <tarifa>149000</tarifa>
+    <finicio>2013-01-04</finicio>
+    <ffin>2015-12-31</ffin>
+    <equipoid>9350</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>DEEP DRILLER MEXICO, S. DE R. L. DE C.V.</nomcia>
+    <equipo>DEEP DRILLER 7</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003821</NoContrato>
+    <tarifa>30000</tarifa>
+    <finicio>2013-09-04</finicio>
+    <ffin>2016-04-19</ffin>
+    <equipoid>9093</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>EP-01 (MOD XXXI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003821</NoContrato>
+    <tarifa>38200</tarifa>
+    <finicio>2013-09-04</finicio>
+    <ffin>2016-04-19</ffin>
+    <equipoid>9093</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>PERFORADORA CENTRAL, S.A. DE C.V.</nomcia>
+    <equipo>EP-01 (MOD XXXI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003829</NoContrato>
+    <tarifa>125000</tarifa>
+    <finicio>2013-04-25</finicio>
+    <ffin>2020-05-25</ffin>
+    <equipoid>9211</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>OPERADORA CICSA, S.A. DE C.V.</nomcia>
+    <equipo>INDEPENDENCIA I (A/E LXX)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003829</NoContrato>
+    <tarifa>162000</tarifa>
+    <finicio>2013-04-25</finicio>
+    <ffin>2020-05-25</ffin>
+    <equipoid>9211</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>OPERADORA CICSA, S.A. DE C.V.</nomcia>
+    <equipo>INDEPENDENCIA I (A/E LXX)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003855</NoContrato>
+    <tarifa>34250</tarifa>
+    <finicio>2013-06-20</finicio>
+    <ffin>2015-11-30</ffin>
+    <equipoid>507</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>N/A</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003855</NoContrato>
+    <tarifa>23780</tarifa>
+    <finicio>2013-06-20</finicio>
+    <ffin>2015-11-30</ffin>
+    <equipoid>511</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>N/A</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003878</NoContrato>
+    <tarifa>21600</tarifa>
+    <finicio>2013-07-26</finicio>
+    <ffin>2015-08-31</ffin>
+    <equipoid>778</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>N/A</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003878</NoContrato>
+    <tarifa>21600</tarifa>
+    <finicio>2013-07-26</finicio>
+    <ffin>2015-10-31</ffin>
+    <equipoid>779</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>N/A</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003886</NoContrato>
+    <tarifa>22300</tarifa>
+    <finicio>2013-02-08</finicio>
+    <ffin>2015-01-06</ffin>
+    <equipoid>6018</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>N/A</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003902</NoContrato>
+    <tarifa>40000</tarifa>
+    <finicio>2013-10-31</finicio>
+    <ffin>2018-06-08</ffin>
+    <equipoid>6021</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-1 (MOD E)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003902</NoContrato>
+    <tarifa>48500</tarifa>
+    <finicio>2013-10-31</finicio>
+    <ffin>2018-06-08</ffin>
+    <equipoid>6021</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-1 (MOD E)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003908</NoContrato>
+    <tarifa>103000</tarifa>
+    <finicio>2013-12-13</finicio>
+    <ffin>2016-04-12</ffin>
+    <equipoid>6006</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>GOIMAR, S.A. DE C.V.</nomcia>
+    <equipo>GENE-ROSSER (A/E III)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003913</NoContrato>
+    <tarifa>38247</tarifa>
+    <finicio>2013-11-29</finicio>
+    <ffin>2015-04-18</ffin>
+    <equipoid>9043</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>SUPER SUNDOWNER XX (ALIG 3)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003915</NoContrato>
+    <tarifa>53500</tarifa>
+    <finicio>2013-11-26</finicio>
+    <ffin>2017-04-28</ffin>
+    <equipoid>9362</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>BLAKE INTERNATIONAL USA RIG, LLC.</nomcia>
+    <equipo>BLAKE RIG 2003 (MOD TM)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003918</NoContrato>
+    <tarifa>40000</tarifa>
+    <finicio>2014-01-01</finicio>
+    <ffin>2018-11-10</ffin>
+    <equipoid>6024</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-4 (MOD IX)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003918</NoContrato>
+    <tarifa>48500</tarifa>
+    <finicio>2014-01-01</finicio>
+    <ffin>2018-11-10</ffin>
+    <equipoid>6024</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-4 (MOD IX)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004811</NoContrato>
+    <tarifa>40000</tarifa>
+    <finicio>2014-03-02</finicio>
+    <ffin>2018-08-08</ffin>
+    <equipoid>6014</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>MASE-801 (MOD XIA)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004811</NoContrato>
+    <tarifa>53500</tarifa>
+    <finicio>2014-03-02</finicio>
+    <ffin>2018-08-08</ffin>
+    <equipoid>6014</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>MASE-801 (MOD XIA)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004827</NoContrato>
+    <tarifa>78000</tarifa>
+    <finicio>2015-12-31</finicio>
+    <ffin>2018-11-16</ffin>
+    <equipoid>20207</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>CONSTRUCTORA Y PERFORADORA  LATINA</nomcia>
+    <equipo>LATINA 1 (MOD XI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004828</NoContrato>
+    <tarifa>54200</tarifa>
+    <finicio>2013-02-20</finicio>
+    <ffin>2019-09-10</ffin>
+    <equipoid>201030</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>SERVICIOS ESPECIALIZADOS LA ISLA S.A. DE C.V.</nomcia>
+    <equipo>LA ISLA (MOD MS)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004829</NoContrato>
+    <tarifa>125000</tarifa>
+    <finicio>2014-11-15</finicio>
+    <ffin>2022-11-02</ffin>
+    <equipoid>20206</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>CAMPECHE JACKUP, S.A. DE C.V.</nomcia>
+    <equipo>(A/E XCVIII) CAMPECHE</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004829</NoContrato>
+    <tarifa>159000</tarifa>
+    <finicio>2014-11-15</finicio>
+    <ffin>2022-11-02</ffin>
+    <equipoid>20206</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>CAMPECHE JACKUP, S.A. DE C.V.</nomcia>
+    <equipo>(A/E XCVIII) CAMPECHE</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004838</NoContrato>
+    <tarifa>39000</tarifa>
+    <finicio>2014-03-21</finicio>
+    <ffin>2017-01-03</ffin>
+    <equipoid>6012</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>MASE 802 (MOD I)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004838</NoContrato>
+    <tarifa>53500</tarifa>
+    <finicio>2014-03-21</finicio>
+    <ffin>2017-01-03</ffin>
+    <equipoid>6012</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>NABORS PERFORACIONES DE MEXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>MASE 802 (MOD I)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004840</NoContrato>
+    <tarifa>65000</tarifa>
+    <finicio>2014-04-05</finicio>
+    <ffin>2015-10-15</ffin>
+    <equipoid>800</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>KCA DEUTAG CASPIAN LIMITED</nomcia>
+    <equipo>BEN LOYAL</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004840</NoContrato>
+    <tarifa>103000</tarifa>
+    <finicio>2014-04-05</finicio>
+    <ffin>2015-10-15</ffin>
+    <equipoid>800</equipoid>
+    <esquema>REMI</esquema>
+    <nomcia>KCA DEUTAG CASPIAN LIMITED</nomcia>
+    <equipo>BEN LOYAL</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001839</NoContrato>
+    <tarifa>75000</tarifa>
+    <finicio>2012-09-17</finicio>
+    <ffin>2015-10-14</ffin>
+    <equipoid>6048</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN SUMMIT</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421001839</NoContrato>
+    <tarifa>85000</tarifa>
+    <finicio>2012-09-17</finicio>
+    <ffin>2015-10-14</ffin>
+    <equipoid>6048</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN SUMMIT</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002818</NoContrato>
+    <tarifa>95000</tarifa>
+    <finicio>2012-02-10</finicio>
+    <ffin>2016-06-28</ffin>
+    <equipoid>6028</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>HAI-YANG-SHI-YOU 936 (A/E XXVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002833</NoContrato>
+    <tarifa>489000</tarifa>
+    <finicio>2012-11-16</finicio>
+    <ffin>2018-03-28</ffin>
+    <equipoid>9198</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GRUPO R EXPLORACION MARINA, S.A. DE C.V.</nomcia>
+    <equipo>MURALLA IV (S/S XVI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002833</NoContrato>
+    <tarifa>489000</tarifa>
+    <finicio>2013-09-04</finicio>
+    <ffin>2018-03-28</ffin>
+    <equipoid>9198</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GRUPO R EXPLORACION MARINA, S.A. DE C.V.</nomcia>
+    <equipo>MURALLA IV (S/S XVI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002844</NoContrato>
+    <tarifa>59800</tarifa>
+    <finicio>2013-12-22</finicio>
+    <ffin>2017-04-06</ffin>
+    <equipoid>9361</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>BLAKE INTERNATIONAL USA RIG, LLC.</nomcia>
+    <equipo>BLAKE RIG 2001</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002872</NoContrato>
+    <tarifa>105000</tarifa>
+    <finicio>2013-10-01</finicio>
+    <ffin>2016-01-27</ffin>
+    <equipoid>9372</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GSP OFFSHORE MÉXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>GSP ORIZONT (A/E DT)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002873</NoContrato>
+    <tarifa>105000</tarifa>
+    <finicio>2013-01-13</finicio>
+    <ffin>2015-12-14</ffin>
+    <equipoid>9371</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GSP OFFSHORE MÉXICO, S. DE R.L. DE C.V.</nomcia>
+    <equipo>GSP ATLAS (A/E TGP)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421002874</NoContrato>
+    <tarifa>97000</tarifa>
+    <finicio>2013-05-06</finicio>
+    <ffin>2016-08-08</ffin>
+    <equipoid>6044</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN NUGGET (A/E R)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003816</NoContrato>
+    <tarifa>110000</tarifa>
+    <finicio>2013-03-04</finicio>
+    <ffin>2017-06-22</ffin>
+    <equipoid>6026</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL CONFIDENCE</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003823</NoContrato>
+    <tarifa>130000</tarifa>
+    <finicio>2013-11-06</finicio>
+    <ffin>2016-05-04</ffin>
+    <equipoid>9206</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>TODCO MÃXICO, INC.</nomcia>
+    <equipo>PRIMUS (A/E LXVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003823</NoContrato>
+    <tarifa>158999</tarifa>
+    <finicio>2013-11-06</finicio>
+    <ffin>2016-05-04</ffin>
+    <equipoid>9206</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>TODCO MÃXICO, INC.</nomcia>
+    <equipo>PRIMUS (A/E LXVII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003882</NoContrato>
+    <tarifa>211445</tarifa>
+    <finicio>2014-03-21</finicio>
+    <ffin>2016-03-01</ffin>
+    <equipoid>6041</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN AMBASSADOR (S/S A1)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003882</NoContrato>
+    <tarifa>211445</tarifa>
+    <finicio>2014-03-21</finicio>
+    <ffin>2016-03-16</ffin>
+    <equipoid>6041</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN AMBASSADOR (S/S A1)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003882</NoContrato>
+    <tarifa>115000</tarifa>
+    <finicio>2014-03-21</finicio>
+    <ffin>2016-07-30</ffin>
+    <equipoid>6041</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN AMBASSADOR (S/S A1)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003903</NoContrato>
+    <tarifa>45000</tarifa>
+    <finicio>2013-02-12</finicio>
+    <ffin>2018-08-13</ffin>
+    <equipoid>6022</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-2 (MOD XIII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003903</NoContrato>
+    <tarifa>58500</tarifa>
+    <finicio>2013-02-12</finicio>
+    <ffin>2018-08-13</ffin>
+    <equipoid>6022</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-2 (MOD XIII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004800</NoContrato>
+    <tarifa>130000</tarifa>
+    <finicio>2014-08-02</finicio>
+    <ffin>2018-01-19</ffin>
+    <equipoid>9063</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>TODCO MÃXICO, INC.</nomcia>
+    <equipo>9063 FORTIUS (A/E LXXXVI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004800</NoContrato>
+    <tarifa>161125</tarifa>
+    <finicio>2014-08-02</finicio>
+    <ffin>2018-01-19</ffin>
+    <equipoid>9063</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>TODCO MÃXICO, INC.</nomcia>
+    <equipo>9063 FORTIUS (A/E LXXXVI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004843</NoContrato>
+    <tarifa>52500</tarifa>
+    <finicio>2014-05-25</finicio>
+    <ffin>2017-08-01</ffin>
+    <equipoid>6023</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>COSL MEXICO, S. A. DE C. V.</nomcia>
+    <equipo>COSL-3 (MOD EJ)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004854</NoContrato>
+    <tarifa>160009</tarifa>
+    <finicio>2014-09-30</finicio>
+    <ffin>2017-12-31</ffin>
+    <equipoid>9324</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN LEXINGTON </equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004855</NoContrato>
+    <tarifa>115000</tarifa>
+    <finicio>2014-06-04</finicio>
+    <ffin>2016-03-03</ffin>
+    <equipoid>6049</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN SCEPTER</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004855</NoContrato>
+    <tarifa>158000</tarifa>
+    <finicio>2014-06-04</finicio>
+    <ffin>2016-03-03</ffin>
+    <equipoid>6049</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>MEXDRILL OFFSHORE, S. DE R.L. DE C.V.</nomcia>
+    <equipo>OCEAN SCEPTER</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007815</NoContrato>
+    <tarifa>365000</tarifa>
+    <finicio>2011-05-07</finicio>
+    <ffin>2016-06-28</ffin>
+    <equipoid>9184</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>BICENTENARIO (S/S VI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007815</NoContrato>
+    <tarifa>530000</tarifa>
+    <finicio>2011-05-07</finicio>
+    <ffin>2016-06-28</ffin>
+    <equipoid>9184</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>BICENTENARIO (S/S VI)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007816</NoContrato>
+    <tarifa>495000</tarifa>
+    <finicio>2010-06-09</finicio>
+    <ffin>2015-07-29</ffin>
+    <equipoid>9197</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GRUPO R EXPLORACION MARINA, S.A. DE C.V.</nomcia>
+    <equipo>CENTENARIO GR (S/S VII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007816</NoContrato>
+    <tarifa>365000</tarifa>
+    <finicio>2010-06-09</finicio>
+    <ffin>2015-12-30</ffin>
+    <equipoid>9197</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GRUPO R EXPLORACION MARINA, S.A. DE C.V.</nomcia>
+    <equipo>CENTENARIO GR (S/S VII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007816</NoContrato>
+    <tarifa>495000</tarifa>
+    <finicio>2010-06-09</finicio>
+    <ffin>2015-12-31</ffin>
+    <equipoid>9197</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GRUPO R EXPLORACION MARINA, S.A. DE C.V.</nomcia>
+    <equipo>CENTENARIO GR (S/S VII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007816</NoContrato>
+    <tarifa>365000</tarifa>
+    <finicio>2010-06-09</finicio>
+    <ffin>2016-07-31</ffin>
+    <equipoid>9197</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>GRUPO R EXPLORACION MARINA, S.A. DE C.V.</nomcia>
+    <equipo>CENTENARIO GR (S/S VII)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007817</NoContrato>
+    <tarifa>365000</tarifa>
+    <finicio>2011-08-24</finicio>
+    <ffin>2016-08-16</ffin>
+    <equipoid>9201</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>SEA DRAGON DE MEXICO S. DE R.L. DE C.V.</nomcia>
+    <equipo>WEST PEGASUS (S/S XV)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421007817</NoContrato>
+    <tarifa>503000</tarifa>
+    <finicio>2011-08-24</finicio>
+    <ffin>2016-08-16</ffin>
+    <equipoid>9201</equipoid>
+    <esquema>REMI-MIXTO</esquema>
+    <nomcia>SEA DRAGON DE MEXICO S. DE R.L. DE C.V.</nomcia>
+    <equipo>WEST PEGASUS (S/S XV)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004601</NoContrato>
+    <tarifa>32845</tarifa>
+    <finicio>2014-04-24</finicio>
+    <ffin>2015-09-21</ffin>
+    <equipoid>201028</equipoid>
+    <esquema>ADMINISTRACION</esquema>
+    <nomcia>DRILLMEX S.P.A./DRILLMEC INC./PPS</nomcia>
+    <equipo>PM-1503 (PM-ADQ_1)</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421004601</NoContrato>
+    <tarifa>32845</tarifa>
+    <finicio>2014-04-24</finicio>
+    <ffin>2015-09-21</ffin>
+    <equipoid>201029</equipoid>
+    <esquema>ADMINISTRACION</esquema>
+    <nomcia>DRILLMEX S.P.A./DRILLMEC INC./PPS</nomcia>
+    <equipo>PM-ADQ_2</equipo>
+  </contrato>
+  <contrato>
+    <NoContrato>421003855</NoContrato>
+    <tarifa>31000</tarifa>
+    <finicio>2013-06-20</finicio>
+    <ffin>2015-11-30</ffin>
+    <equipoid>776</equipoid>
+    <esquema>ALIANZA-PMX</esquema>
+    <nomcia>INDUSTRIAL PERFORADORA DE CAMPECHE, S. A. DE C.V.</nomcia>
+    <equipo>IPC-776</equipo>
+  </contrato>
+</contratos>

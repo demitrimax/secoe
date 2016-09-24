@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Contratos>
+	<Contrato>421001801</Contrato>
+	<ObjetoCto>"Descripcion del Contrato"</ObjetoCto>
+	<FechaInicio>2012-09-27</FechaInicio>
+	<FechaTermino>2015-01-30</FechaTermino>
+	<NombreCia>"FIRSTDRILL LIMITED"</NombreCia>
+	<Equipos>
+		<Equipo>
+			<NoEquipo>9352</NoEquipo>
+			<NombreEquipo>"MENADRILL II (A/E XLI)"</NombreEquipo>
+			<Caracteristica>"300 Pies"</Caracteristica>
+			<Esquema>"REMI"</Esquema>
+		</Equipo>
+		<Equipo>
+			<NoEquipo>9352</NoEquipo>
+			<NombreEquipo>"MENADRILL I "</NombreEquipo>
+			<Caracteristica>"350 Pies"</Caracteristica>
+			<Esquema>"REMI"</Esquema>
+		</Equipo>
+	</Equipos>
+	<Contrato>421001401</Contrato>
+	<ObjetoCto>"Descripcion del Contrato 3"</ObjetoCto>
+	<FechaInicio>2012-09-27</FechaInicio>
+	<FechaTermino>2015-01-30</FechaTermino>
+	<NombreCia>"NABORS"</NombreCia>
+	<Equipos>
+		<Equipo>
+			<NoEquipo>005</NoEquipo>
+			<NombreEquipo>"SANDUNGA MOD"</NombreEquipo>
+			<Caracteristica>"250 Pies"</Caracteristica>
+			<Esquema>"REMI-MIXTO"</Esquema>
+		</Equipo>
+		<Equipo>
+			<NoEquipo>9352</NoEquipo>
+			<NombreEquipo>"OCEAN NUGET "</NombreEquipo>
+			<Caracteristica>"300 Pies"</Caracteristica>
+			<Esquema>"REMI"</Esquema>
+		</Equipo>
+	</Equipos>
+</Contratos>

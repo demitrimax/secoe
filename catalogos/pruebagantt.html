@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery.easing.1.3.js"></script>
+<script src="../js/script.js"></script> 
+<script src="../js/superfish.js"></script>
+<script src="../js/jquery.equalheights.js"></script>
+<script src="../js/jquery.mobilemenu.js"></script>
+<script src="../js/tmStickUp.js"></script>
+<script src="../js/jquery.ui.totop.js"></script>
+
+<script type="text/javascript" src="../js/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var container = document.getElementById('example3.1');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Position' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+	dataTable.addColumn({ type: 'string', id: 'Category' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows([
+      	  ['SPAS14FEB16', 'ABKATUN-228', 'PER',new Date(2017, 01, 01), new Date(2017, 01, 10)], 
+	  	  	  ['SPAS14FEB16', 'ABKATUN-228', 'TER', new Date(2017, 01, 18), new Date(2017, 06, 06)], 
+	  	  	  ['SPAS14FEB16', 'ABKATUN-228','RMA', new Date(2017, 06, 07), new Date(2017, 08, 15)], 
+	  	  	  ['SPAS14FEB16', 'HOMOL-81', 'PER', new Date(2017, 08, 16), new Date(2017, 08, 25)], 
+	  	  	  ['SPAS14FEB16', 'HOMOL-81', 'TER', new Date(2017, 08, 31), new Date(2018, 01, 22)], 
+	  	  	  ['SPAS14FEB16', 'HOMOL-81', 'RME', new Date(2018, 01, 23), new Date(2018, 04, 02)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2067', 'PER', new Date(2018, 01, 01), new Date(2018, 01, 07)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2067', 'TER', new Date(2018, 01, 08), new Date(2018, 01, 17)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2067', 'RMA', new Date(2018, 01, 23), new Date(2018, 07, 01)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2067', 'RME', new Date(2018, 07, 02), new Date(2018, 07, 22)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2086', 'PER', new Date(2018, 07, 30), new Date(2019, 01, 05)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2086', 'TER', new Date(2019, 01, 06), new Date(2019, 01, 26)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2088', 'PER', new Date(2019, 02, 03), new Date(2019, 07, 12)], 
+	  	  	  ['SAS01ABR16', 'IXTAL 2088', 'TER', new Date(2019, 07, 13), new Date(2019, 08, 02)], 
+	  	  	   
+    ]);
+ var options = {
+    colors: ['#4DA6FF', '#00661A', '#FFFF00', '#4DA6FF', '#00661A', '#FFFF00', '#4DA6FF', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#4DA6FF', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#4DA6FF', '#00B259', '#00B259', '#4DA6FF', '#4DA6FF', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#FFBF00', '#FFBF00', '#0000FF', '#B20000', '#4DA6FF', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#00B259', '#4DA6FF', '#00B259', '#4DA6FF', '#00661A', '#FFFF00', '#00661A', '#FFFF00', '#00661A', '#FFFF00']
+  };
+  var colorMap = {
+        // should contain a map of category -> color for every category
+        PER: '#e63b6f',
+        TER: '#19c362',
+        RMA: '#592df7',
+		RME: '#592df7'
+    }
+	for (var i = 0; i < dataTable.getNumberOfRows(); i++) {
+        colors.push(colorMap[dataTable.getValue(i, 1)]);
+    }
+
+    chart.draw(dataTable, options);
+	  window.console.log(dataTable);
+  }
+  google.load('visualization', '1', {packages:['timeline'], callback: drawChart});
+</script>
+
+</head>
+
+<body>
+<div id="example3.1" style="height: 200px;"></div>
+
+</body>
+</html>
