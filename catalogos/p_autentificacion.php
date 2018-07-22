@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/ResEquipos.php'); ?>
+<?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
 /**
  * Created by Joe of ExchangeCore.com

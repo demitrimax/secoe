@@ -1,4 +1,4 @@
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 <?php require_once("../webassist/file_manipulation/helperphp.php"); ?>
 <?php
 // WA_UploadResult1 Params Start

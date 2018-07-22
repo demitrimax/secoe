@@ -1,4 +1,4 @@
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 <?php
 mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_lastpot = "SELECT pot.programoficial FROM pot WHERE pot.id_prog = (select max(pot.id_prog) from pot)";

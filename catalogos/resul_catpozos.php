@@ -40,14 +40,16 @@ $columns = array(
 );
 
 // SQL server connection information
-$sql_details = array(
-	'user' => 'id4491471_secoeuser',
-	'pass' => 'secoeweb',
-	'db'   => 'id4491471_secoe',
+include('../Connections/ArrayConnection.php');
+
+/*$sql_details = array(
+	'user' => 'root',
+	'pass' => '',
+	'db'   => 'secoe',
 	'host' => 'localhost',
 	'charset' => 'utf8'
 );
-
+*/
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * If you just want to use the basic configuration for DataTables with PHP

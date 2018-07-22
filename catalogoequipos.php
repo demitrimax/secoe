@@ -1,4 +1,4 @@
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 <?php
 mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_CATEquipos = "SELECT * FROM detalleequipo_v2";

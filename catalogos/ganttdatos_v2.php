@@ -13,11 +13,13 @@ if( isset($_GET['idEquipo']) ) {
 function get_equipos( $id, $programa = null) {
  
   //Cambia por los detalles de tu base datos
+	include('../Connections/OtherConnections.php');
+  /*
   $dbserver = "localhost";
   $dbuser = "moises";
   $password = "pemex11";
   $dbname = "SECOE";
- 
+ 	*/
   $database = new mysqli($dbserver, $dbuser, $password, $dbname);
 
   if($database->connect_errno) {

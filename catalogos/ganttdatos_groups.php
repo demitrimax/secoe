@@ -8,10 +8,11 @@ if( isset($_GET['idEquipo']) ) {
 function get_equipos( $id ) {
  
   //Cambia por los detalles de tu base datos
-  $dbserver = "localhost";
+   include('../Connections/OtherConnections.php');
+  /* $dbserver = "localhost";
   $dbuser = "moises";
   $password = "pemex11";
-  $dbname = "SECOE";
+  $dbname = "SECOE"; */
  
   $database = new mysqli($dbserver, $dbuser, $password, $dbname);
 

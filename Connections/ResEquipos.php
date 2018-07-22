@@ -3,9 +3,9 @@
 # Type="MYSQL"
 # HTTP="true"
 $hostname_ResEquipos = "localhost";
-$database_ResEquipos = "id4491471_secoe";
-$username_ResEquipos = "id4491471_secoeuser";
-$password_ResEquipos = "secoeweb";
+$database_ResEquipos = "secoe";
+$username_ResEquipos = "root";
+$password_ResEquipos = "";
 $ResEquipos =  mysqli_connect($hostname_ResEquipos, $username_ResEquipos, $password_ResEquipos) or trigger_error(mysqli_error($ResEquipos),E_USER_ERROR); 
 
 function mysqli_result($res,$row=0,$col=0){ 

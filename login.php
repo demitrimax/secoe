@@ -1,4 +1,4 @@
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 
 <?php
 // *** Validate request to login to this site.

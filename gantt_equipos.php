@@ -1,4 +1,4 @@
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 <?php
 
 $colname_ProgEquipos = 'POT-2';

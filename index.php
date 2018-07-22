@@ -1,4 +1,4 @@
-<?php require_once('../Connections/ResEquipos.php'); 
+<?php require_once('Connections/ResEquipos.php'); 
   $correcodigo = "true"; 
 if (!isset($_SESSION)) {
   session_start();

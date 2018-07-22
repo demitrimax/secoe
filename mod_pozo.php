@@ -46,7 +46,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 <?php
 
 //REGISTRAS LA VISITA A ESTA PAGINA EN LA BASE DE DATOS

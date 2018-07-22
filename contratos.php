@@ -43,7 +43,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 <?php
 
 
@@ -63,8 +63,7 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responstable.css">
-<link href="../SpryAssets/SpryMasterDetail.css" rel="stylesheet" type="text/css">
-<link href="../SpryAssets/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css">
+
 <script src="js/jquery.js"></script>
 <script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
@@ -74,9 +73,7 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 <script src="js/jquery.mobilemenu.js"></script>
 <script src="js/tmStickUp.js"></script>
 <script src="js/jquery.ui.totop.js"></script>
-<script src="../SpryAssets/xpath.js" type="text/javascript"></script>
-<script src="../SpryAssets/SpryData.js" type="text/javascript"></script>
-<script src="../SpryAssets/SpryCollapsiblePanel.js" type="text/javascript"></script>
+
 <script>
 $(window).load(function(){
   $().UItoTop({ easingType: 'easeOutQuart' });

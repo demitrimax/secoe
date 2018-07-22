@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Monterrey');
 ?>
-<?php require_once('../Connections/ResEquipos.php'); ?>
+<?php require_once('Connections/ResEquipos.php'); ?>
 
 <?php
 

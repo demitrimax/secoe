@@ -1,4 +1,4 @@
-<?php require_once('../../Connections/ResEquipos.php'); ?>
+<?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
 
 $editFormAction = $_SERVER['PHP_SELF'];
