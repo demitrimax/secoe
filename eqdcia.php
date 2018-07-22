@@ -35,7 +35,7 @@ $colname_Recordset1 = "-1";
 if (isset($_GET['idCia'])) {
   $colname_Recordset1 = $_GET['idCia'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_CiasEQ = sprintf("SELECT
 cat_equipos.CLVE_EQUIPO,
 cat_equipos.IdEquipo,
@@ -50,9 +50,9 @@ INNER JOIN cat_estatus ON cat_equipos.ESTATUS = cat_estatus.ID_ESTATUS
 INNER JOIN cat_cias ON cat_equipos.Cia = cat_cias.id_cia
 WHERE cat_equipos.Cia = %s" , GetSQLValueString($colname_Recordset1, "text"));;
 
-$CiasEQ = mysql_query($query_CiasEQ, $ResEquipos) or die(mysql_error());
-$row_CiasEQ = mysql_fetch_assoc($CiasEQ);
-$totalRows_CiasEQ = mysql_num_rows($CiasEQ);
+$CiasEQ = mysql_query($query_CiasEQ, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_CiasEQ = mysqli_fetch_assoc($CiasEQ);
+$totalRows_CiasEQ = mysqli_num_rows($CiasEQ);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,7 +64,7 @@ $totalRows_CiasEQ = mysql_num_rows($CiasEQ);
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -181,7 +181,7 @@ $(document).ready(function() {
                 <td><?php echo $row_CiasEQ['Caracteristicas']; ?></td>
                 <td></td>
               </tr>
-              <?php } while ($row_CiasEQ = mysql_fetch_assoc($CiasEQ)); ?>
+              <?php } while ($row_CiasEQ = mysqli_fetch_assoc($CiasEQ)); ?>
       </tbody>
     </table>
     <p>&nbsp;</p>
@@ -210,5 +210,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($CiasEQ);
+mysqli_free_result($CiasEQ);
 ?>

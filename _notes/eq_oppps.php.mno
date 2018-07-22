@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_CATEquipos" value="name:idEquipo;datatype:int,name:Equipo;datatype:string,name:tipo;datatype:string,name:Caracteristicas;datatype:string,name:InicialCia;datatype:string,name:marcamalacate;datatype:string,name:HP;datatype:string,name:TA;datatype:string,name:CAPPERF;datatype:string,name:SECCSINDICAL;datatype:string" />
+</info>

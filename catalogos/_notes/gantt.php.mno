@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_anosequipo" value="name:anofin;datatype:int" />
+	<infoitem key="UD_equipos" value="name:idEquipo;datatype:int,name:CLVE_EQUIPO;datatype:int,name:Equipo;datatype:string,name:TEquipo;datatype:int,name:Caracteristicas;datatype:int,name:Cia;datatype:int,name:marcamalacate;datatype:string,name:HP;datatype:string,name:TA;datatype:string,name:CAPPERF;datatype:string,name:SECCSINDICAL;datatype:string,name:ESTATUS;datatype:int,name:EFICIENCIA;datatype:string,name:CLASE;datatype:int,name:ACTIVIDAD;datatype:int,name:UBICACION;datatype:int,name:ANO_COMPRA;datatype:string,name:ANO_CONSTR;datatype:string,name:TARIFADIARIAUSD;datatype:real,name:SUBDIR;datatype:int,name:ACTIVO;datatype:int" />
+</info>

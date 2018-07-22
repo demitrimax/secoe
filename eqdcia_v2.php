@@ -1,41 +1,12 @@
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $colname_Recordset1 = "-1";
 if (isset($_GET['idCia'])) {
   $colname_Recordset1 = $_GET['idCia'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_CiasEQ = sprintf("SELECT
 cat_equipos.CLVE_EQUIPO,
 cat_equipos.IdEquipo,
@@ -49,11 +20,11 @@ cat_equipos
 INNER JOIN cat_equipocaracteristicas ON cat_equipos.Caracteristicas = cat_equipocaracteristicas.IdCar
 INNER JOIN cat_estatus ON cat_equipos.ESTATUS = cat_estatus.ID_ESTATUS
 INNER JOIN cat_cias ON cat_equipos.Cia = cat_cias.id_cia
-WHERE (cat_equipos.ESTATUS = 1 OR cat_equipos.ESTATUS = 2 OR cat_equipos.ESTATUS = 5) AND cat_equipos.Cia = %s" , GetSQLValueString($colname_Recordset1, "text"));;
+WHERE cat_equipos.ESTATUS IN (1,2,5,6) AND cat_equipos.Cia = %s", $colname_Recordset1);;
 
-$CiasEQ = mysql_query($query_CiasEQ, $ResEquipos) or die(mysql_error());
-$row_CiasEQ = mysql_fetch_assoc($CiasEQ);
-$totalRows_CiasEQ = mysql_num_rows($CiasEQ);
+$CiasEQ = mysqli_query($ResEquipos, $query_CiasEQ) or die(mysql_error($ResEquipos));
+$row_CiasEQ = mysqli_fetch_assoc($CiasEQ);
+$totalRows_CiasEQ = mysqli_num_rows($CiasEQ);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,7 +36,7 @@ $totalRows_CiasEQ = mysql_num_rows($CiasEQ);
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -147,7 +118,7 @@ $(document).ready(function() {
                 <td><?php echo $row_CiasEQ['Caracteristicas']; ?></td>
                 <td><img src="images/sem/sem_<?php echo $row_CiasEQ['SEMAFORO']; ?>.png" width="16" height="16" title="<?php echo utf8_encode($row_CiasEQ['ESTATUS']); ?>"></td>
               </tr>
-              <?php } while ($row_CiasEQ = mysql_fetch_assoc($CiasEQ)); ?>
+              <?php } while ($row_CiasEQ = mysqli_fetch_assoc($CiasEQ)); ?>
       </tbody>
     </table>
     <p>&nbsp;</p>
@@ -164,5 +135,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($CiasEQ);
+mysqli_free_result($CiasEQ);
 ?>

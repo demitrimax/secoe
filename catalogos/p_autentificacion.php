@@ -58,9 +58,9 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 		echo "usuario autentificado";
 		//ahora verificar que exista en la lista de usuarios admitidos
 		$query_usuarios = sprintf("SELECT * FROM usuarios WHERE fusuario = %s", GetSQLValueString($username, "int"));
-		$usuarios = mysql_query($query_usuarios, $ResEquipos) or die(mysql_error());
-		$row_usuarios = mysql_fetch_assoc($usuarios);
-		$totalRows_usuarios = mysql_num_rows($usuarios);
+		$usuarios = mysql_query($query_usuarios, $ResEquipos) or die(mysqli_error($ResEquipos));
+		$row_usuarios = mysqli_fetch_assoc($usuarios);
+		$totalRows_usuarios = mysqli_num_rows($usuarios);
 		$nficha = $username;
 		$permiso = "";
 		if ($totalRows_usuarios > 0) {

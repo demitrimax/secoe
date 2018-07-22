@@ -35,17 +35,17 @@ $colname_ProgEquipos = "-1";
 if (isset($_GET['idequipo'])) {
   $colname_ProgEquipos = $_GET['idequipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_ProgEquipos = sprintf("SELECT * FROM v_intervenciones WHERE idequipo = %s", GetSQLValueString($colname_ProgEquipos, "int"));
-$ProgEquipos = mysql_query($query_ProgEquipos, $ResEquipos) or die(mysql_error());
-$row_ProgEquipos = mysql_fetch_assoc($ProgEquipos);
-$totalRows_ProgEquipos = mysql_num_rows($ProgEquipos);
+$ProgEquipos = mysql_query($query_ProgEquipos, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_ProgEquipos = mysqli_fetch_assoc($ProgEquipos);
+$totalRows_ProgEquipos = mysqli_num_rows($ProgEquipos);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_programas = sprintf("SELECT programa, unicoprograma FROM v_intervenciones WHERE idequipo = %s GROUP BY programa", GetSQLValueString($colname_ProgEquipos, "int"));
-$programas = mysql_query($query_programas, $ResEquipos) or die(mysql_error());
-$row_programas = mysql_fetch_assoc($programas);
-$totalRows_programas = mysql_num_rows($programas);
+$programas = mysql_query($query_programas, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_programas = mysqli_fetch_assoc($programas);
+$totalRows_programas = mysqli_num_rows($programas);
 
 
 
@@ -134,7 +134,7 @@ $contador2 = -1;
 		   $contador2++;
 		   ?>
     {id: <?php echo $row_programas['unicoprograma']; ?>, content: '<?php echo $row_programas['programa']; ?>', value: <?php echo $contador2; ?>},
-	<?php } while ($row_programas = mysql_fetch_assoc($programas)); ?>
+	<?php } while ($row_programas = mysqli_fetch_assoc($programas)); ?>
   ]);
 
   // Create a DataSet (allows two way data-binding)
@@ -150,7 +150,7 @@ $contador2 = -1;
 	  $contador++;
 	  ?>
  {id: <?php echo $contador; ?>, group: <?php echo $row_ProgEquipos['unicoprograma']; ?>, content: '<?php echo $row_ProgEquipos['pozo']; ?>', start: '<?php echo $fini_ano."-".$fini_mes."-".$fini_dia;?>', end: '<?php echo $ffin_ano."-".$ffin_mes."-".$ffin_dia;?>', className: '<?php echo $row_ProgEquipos['clasecolor']; ?>', title: '<?php echo $tooltip; ?>'},
-<?php } while ($row_ProgEquipos = mysql_fetch_assoc($ProgEquipos)); ?>
+<?php } while ($row_ProgEquipos = mysqli_fetch_assoc($ProgEquipos)); ?>
   ]);
 
   // Configuration for the Timeline
@@ -173,6 +173,6 @@ $contador2 = -1;
 </body>
 </html>
 <?php
-mysql_free_result($ProgEquipos);
-mysql_free_result($programas);
+mysqli_free_result($ProgEquipos);
+mysqli_free_result($programas);
 ?>

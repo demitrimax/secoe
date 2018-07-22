@@ -45,69 +45,40 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 ?>
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 	$query_ultimoregistro = "SELECT MAX(idEquipo) as lastID FROM cat_equipos;";
-	  mysql_select_db($database_ResEquipos, $ResEquipos);
-	$ultimoregistro = mysql_query($query_ultimoregistro, $ResEquipos) or die(mysql_error());
-	$ultimoreg = mysql_fetch_assoc($ultimoregistro);
+	  mysqli_select_db($ResEquipos, $database_ResEquipos);
+	$ultimoregistro = mysqli_query($ResEquipos, $query_ultimoregistro) or die(mysqli_error($ResEquipos));
+	$ultimoreg = mysqli_fetch_assoc($ultimoregistro);
 	$yaelultimo = $ultimoreg['lastID'];
 	$Siguiente = $yaelultimo + 1;
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
-  $insertSQL = sprintf("INSERT INTO cat_equipos (Equipo, TEquipo, Caracteristicas, Cia, marcamalacate, HP, TA, CAPPERF, SECCSINDICAL, ESTATUS, EFICIENCIA, CLASE, ANO_CONSTR) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                       GetSQLValueString($_POST['Equipo'], "text"),
-                       GetSQLValueString($_POST['TEquipo'], "int"),
-                       GetSQLValueString($_POST['Caracteristicas'], "int"),
-                       GetSQLValueString($_POST['Cia'], "int"),
-                       GetSQLValueString($_POST['marcamalacate'], "text"),
-                       GetSQLValueString($_POST['HP'], "text"),
-                       GetSQLValueString($_POST['TA'], "text"),
-                       GetSQLValueString($_POST['CAPPERF'], "text"),
-                       GetSQLValueString($_POST['SECCSINDICAL'], "text"),
-                       GetSQLValueString($_POST['ESTATUS'], "int"),
-					   GetSQLValueString($_POST['EFICIENCIA'], "text"),
-					   GetSQLValueString($_POST['CLASE'], "int"),
-					   GetSQLValueString($_POST['ANOCONSTRUCCION'], "text"),
-					   GetSQLValueString($_POST['idEquipo'], "int"));
+  $insertSQL = sprintf("INSERT INTO cat_equipos (Equipo, TEquipo, Caracteristicas, Cia, marcamalacate, HP, TA, CAPPERF, SECCSINDICAL, ESTATUS, EFICIENCIA, CLASE, ANO_CONSTR) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                       $_POST['Equipo'],
+                       $_POST['TEquipo'], 
+                       $_POST['Caracteristicas'],
+                       $_POST['Cia'],
+                       $_POST['marcamalacate'], 
+                       $_POST['HP'],
+                       $_POST['TA'],
+                       $_POST['CAPPERF'],
+                       $_POST['SECCSINDICAL'], 
+                       $_POST['ESTATUS'], 
+					   $_POST['EFICIENCIA'], 
+					   $_POST['CLASE'], 
+					   $_POST['ANOCONSTRUCCION']);
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+   echo $insertSQL;
+  $Result1 = mysqli_query($ResEquipos, $insertSQL) or die(mysqli_error($ResEquipos));
 	
- echo $insertSQL;
+
 
   $insertGoTo = "detalle_equipo.php?idEquipo=".$Siguiente;
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -121,50 +92,50 @@ $colname_Equipos = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_Equipos = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_Equipos = sprintf("SELECT * FROM cat_equipos WHERE idEquipo = %s", GetSQLValueString($colname_Equipos, "text"));
-$Equipos = mysql_query($query_Equipos, $ResEquipos) or die(mysql_error());
-$row_Equipos = mysql_fetch_assoc($Equipos);
-$totalRows_Equipos = mysql_num_rows($Equipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_Equipos = sprintf("SELECT * FROM cat_equipos WHERE idEquipo = %s", $colname_Equipos);
+$Equipos = mysqli_query($ResEquipos, $query_Equipos) or die(mysqli_error($ResEquipos));
+$row_Equipos = mysqli_fetch_assoc($Equipos);
+$totalRows_Equipos = mysqli_num_rows($Equipos);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_catcias = "SELECT * FROM cat_cias ORDER BY NombreCia ASC";
-$catcias = mysql_query($query_catcias, $ResEquipos) or die(mysql_error());
-$row_catcias = mysql_fetch_assoc($catcias);
-$totalRows_catcias = mysql_num_rows($catcias);
+$catcias = mysqli_query($ResEquipos, $query_catcias) or die(mysqli_error($ResEquipos));
+$row_catcias = mysqli_fetch_assoc($catcias);
+$totalRows_catcias = mysqli_num_rows($catcias);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_caracteristicas = "SELECT * FROM cat_equipocaracteristicas ORDER BY orden ASC";
-$caracteristicas = mysql_query($query_caracteristicas, $ResEquipos) or die(mysql_error());
-$row_caracteristicas = mysql_fetch_assoc($caracteristicas);
-$totalRows_caracteristicas = mysql_num_rows($caracteristicas);
+$caracteristicas = mysqli_query($ResEquipos, $query_caracteristicas) or die(mysqli_error($ResEquipos));
+$row_caracteristicas = mysqli_fetch_assoc($caracteristicas);
+$totalRows_caracteristicas = mysqli_num_rows($caracteristicas);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_tipoequipo = "SELECT * FROM cat_tipoequipo";
-$tipoequipo = mysql_query($query_tipoequipo, $ResEquipos) or die(mysql_error());
-$row_tipoequipo = mysql_fetch_assoc($tipoequipo);
-$totalRows_tipoequipo = mysql_num_rows($tipoequipo);
+$tipoequipo = mysqli_query($ResEquipos, $query_tipoequipo) or die(mysqli_error($ResEquipos));
+$row_tipoequipo = mysqli_fetch_assoc($tipoequipo);
+$totalRows_tipoequipo = mysqli_num_rows($tipoequipo);
 //estatus del equipo
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_cat_estatus = "SELECT * FROM cat_estatus";
-$cat_estatus = mysql_query($query_cat_estatus, $ResEquipos) or die(mysql_error());
-$row_cat_estatus = mysql_fetch_assoc($cat_estatus);
-$totalRows_cat_estatus = mysql_num_rows($cat_estatus);
+$cat_estatus = mysqli_query($ResEquipos, $query_cat_estatus) or die(mysqli_error($ResEquipos));
+$row_cat_estatus = mysqli_fetch_assoc($cat_estatus);
+$totalRows_cat_estatus = mysqli_num_rows($cat_estatus);
 //clase del equipo: automatizado, convencional
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_cat_clase = "SELECT * FROM cat_clase";
-$cat_clase = mysql_query($query_cat_clase, $ResEquipos) or die(mysql_error());
-$row_cat_clase = mysql_fetch_assoc($cat_clase);
-$totalRows_cat_clase = mysql_num_rows($cat_clase);
+$cat_clase = mysqli_query($ResEquipos, $query_cat_clase) or die(mysqli_error($ResEquipos));
+$row_cat_clase = mysqli_fetch_assoc($cat_clase);
+$totalRows_cat_clase = mysqli_num_rows($cat_clase);
 //SUPONES QUE EL USUARIO SE LOGEO CORRECTAMENTE
 $usuario = $_SESSION['MM_Username'];
 $fechahora = date("Y-m-d H:i:s");
 $pagina_actual = $_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING'];
 $ipadress = $_SERVER['REMOTE_ADDR'];
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_log = "INSERT INTO registros (pagina, usuario, fechahora, ip) VALUES ('$pagina_actual', '$usuario', '$fechahora', '$ipadress')";
 //echo $query_log;
-$registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
+$registros = mysqli_query($ResEquipos, $query_log) or die(mysqli_error($ResEquipos));
 
 ?>
 <!DOCTYPE html>
@@ -178,7 +149,7 @@ $registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/form.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -267,7 +238,7 @@ do {
 ?>
         <option value="<?php echo $row_tipoequipo['idtequipo']?>" <?php if (!(strcmp($row_tipoequipo['idtequipo'], htmlentities($row_Equipos['TEquipo'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_tipoequipo['Tipo']?></option>
         <?php
-} while ($row_tipoequipo = mysql_fetch_assoc($tipoequipo));
+} while ($row_tipoequipo = mysqli_fetch_assoc($tipoequipo));
 ?>
       </select>
       <label for="TEquipo"> Tipo de Equipo </label>
@@ -278,7 +249,7 @@ do {
 ?>
         <option value="<?php echo $row_caracteristicas['IdCar']?>" <?php if (!(strcmp($row_caracteristicas['IdCar'], htmlentities($row_Equipos['Caracteristicas'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_caracteristicas['Caracteristicas']?></option>
         <?php
-} while ($row_caracteristicas = mysql_fetch_assoc($caracteristicas));
+} while ($row_caracteristicas = mysqli_fetch_assoc($caracteristicas));
 ?>
       </select>
       <label for="Caracteristicas"> Característica principal</label>
@@ -289,7 +260,7 @@ do {
 ?>
         <option value="<?php echo $row_catcias['id_cia']?>" <?php if (!(strcmp($row_catcias['id_cia'], htmlentities($row_Equipos['Cia'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_catcias['NombreCia']?></option>
         <?php
-} while ($row_catcias = mysql_fetch_assoc($catcias));
+} while ($row_catcias = mysqli_fetch_assoc($catcias));
 ?>
       </select>
       <label for="Cia"> Compañía </label>
@@ -310,7 +281,7 @@ do {
 ?>
         <option value="<?php echo $row_cat_estatus['ID_ESTATUS']?>" <?php if (!(strcmp($row_cat_estatus['ID_ESTATUS'], htmlentities($row_Equipos['ESTATUS'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_cat_estatus['ESTATUS']?></option>
         <?php
-} while ($row_cat_estatus = mysql_fetch_assoc($cat_estatus));
+} while ($row_cat_estatus = mysqli_fetch_assoc($cat_estatus));
 ?>
 </select>
 <label for="ESTATUS"> Estatus </label>
@@ -324,7 +295,7 @@ do {
 ?>
         <option value="<?php echo $row_cat_clase['id_clase']?>" <?php if (!(strcmp($row_cat_clase['id_clase'], htmlentities($row_Equipos['CLASE'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>><?php echo $row_cat_clase['clase']?></option>
         <?php
-} while ($row_cat_clase = mysql_fetch_assoc($cat_clase));
+} while ($row_cat_clase = mysqli_fetch_assoc($cat_clase));
 ?>
 </select>
 <label for="CLASE"> Clase </label>
@@ -362,7 +333,7 @@ do {
 </body>
 </html>
 <?php
-mysql_free_result($Equipos);
+mysqli_free_result($Equipos);
 
-mysql_free_result($catcias);
+mysqli_free_result($catcias);
 ?>

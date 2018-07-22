@@ -31,7 +31,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_catDocs = "SELECT
 documentos.id_doc,
 documentos.fecha,
@@ -50,9 +50,9 @@ INNER JOIN docs_estatus ON documentos.estatus = docs_estatus.id_estatus
 WHERE estatus = 2";
 
 
-$CatDocs = mysql_query($query_catDocs, $ResEquipos) or die(mysql_error());
-$row_CatDocs = mysql_fetch_assoc($CatDocs);
-$totalRows_CatDocs = mysql_num_rows($CatDocs);
+$CatDocs = mysql_query($query_catDocs, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_CatDocs = mysqli_fetch_assoc($CatDocs);
+$totalRows_CatDocs = mysqli_num_rows($CatDocs);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,7 +64,7 @@ $totalRows_CatDocs = mysql_num_rows($CatDocs);
 <link rel="shortcut icon" href="../images/favicon.ico" />
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -187,7 +187,7 @@ $(document).ready(function() {
                 <td> </td>
                 <td> <img src="../images/sem/sem_<?php echo $row_CatDocs['color']; ?>.png" width="16" height="16"> <?php echo $row_CatDocs['clv_estatus']; ?></td>
               </tr>
-              <?php } while ($row_CatDocs = mysql_fetch_assoc($CatDocs)); ?>
+              <?php } while ($row_CatDocs = mysqli_fetch_assoc($CatDocs)); ?>
       </tbody>
     </table>
     <p>&nbsp;</p>
@@ -216,5 +216,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($CatDocs);
+mysqli_free_result($CatDocs);
 ?>

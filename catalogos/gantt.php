@@ -31,11 +31,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_equipos = "SELECT * FROM CAT_EQUIPOS";
-$equipos = mysql_query($query_equipos, $ResEquipos) or die(mysql_error());
-$row_equipos = mysql_fetch_assoc($equipos);
-$totalRows_equipos = mysql_num_rows($equipos);
+$equipos = mysql_query($query_equipos, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_equipos = mysqli_fetch_assoc($equipos);
+$totalRows_equipos = mysqli_num_rows($equipos);
 $idEquipo = 0;
 if (isset($_GET['idEquipo'])){
 	$idEquipo = $_GET['idEquipo'];
@@ -126,11 +126,11 @@ do {
 ?>
     <option value="<?php echo $row_equipos['idEquipo']?>"<?php if (!(strcmp($row_equipos['idEquipo'],$idEquipo))) {echo "selected=\"selected\"";} ?>><?php echo $row_equipos['Equipo']?></option>
     <?php
-} while ($row_equipos = mysql_fetch_assoc($equipos));
-  $rows = mysql_num_rows($equipos);
+} while ($row_equipos = mysqli_fetch_assoc($equipos));
+  $rows = mysqli_num_rows($equipos);
   if($rows > 0) {
       mysql_data_seek($equipos, 0);
-	  $row_equipos = mysql_fetch_assoc($equipos);
+	  $row_equipos = mysqli_fetch_assoc($equipos);
   }
 ?>
   </select>
@@ -295,5 +295,5 @@ $(document).ready(function(){
 </body>
 </html>
 <?php
-mysql_free_result($equipos);
+mysqli_free_result($equipos);
 ?>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_activos" value="name:id_activo;datatype:int,name:ACTIVO;datatype:string,name:ACTIVO_CORTO;datatype:string,name:subdir;datatype:int,name:visible;datatype:int" />
+	<infoitem key="UD_ProgEquipos" value="name:id_prog;datatype:int,name:programa;datatype:string,name:idequipo;datatype:int,name:pozo;datatype:string,name:intervencion;datatype:string,name:fec_ini;datatype:date,name:fec_fin;datatype:date,name:anofin;datatype:int,name:mesfin;datatype:int,name:color;datatype:string,name:CodColor;datatype:string,name:clasecolor;datatype:string,name:unicoprograma;datatype:int,name:Equipo;datatype:string,name:programoficial;datatype:string,name:ACTIVO;datatype:string,name:idactivo;datatype:int" />
+	<infoitem key="UD_programas" value="name:Equipo;datatype:string,name:idequipo;datatype:int" />
+</info>

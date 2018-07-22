@@ -4,12 +4,12 @@
 	$pass = "pemex11";
 	$bbdd = "SECOE";
 	 
-    $dbh = mysql_connect("localhost", $user, $pass);
-    $db = mysql_select_db($bbdd);
+    $dbh = mysqli_connect("localhost", $user, $pass);
+    $db = mysqli_select_db($dbh, $bbdd);
  
     $consulta = "SELECT * from cat_activos WHERE subdir = ".$_GET['id'];
-    $query = mysql_query($consulta);
-    while ($fila = mysql_fetch_array($query)) {
+    $query = mysqli_query($dbh, $consulta);
+    while ($fila = mysqli_fetch_array($query)) {
         echo '<option value="'.$fila['id_activo'].'">'.$fila['ACTIVO'].'</option>';
     };
  

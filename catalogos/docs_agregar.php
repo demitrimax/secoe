@@ -84,8 +84,8 @@ if ($archivo != 'none') {
 				
 $insertSQL = "INSERT INTO documentos (archivo, fecha, descripcion, nom_archivo, tipo, tamano, url_file, estatus) VALUES ('$titulo','$fecha','$descripcion','$nom_archivo','$tipo','$tamano','$url_file', '2')";	   
 	echo $insertSQL;
-   mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+   mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysqli_error($ResEquipos));
  
  if(mysql_affected_rows($ResEquipos) > 0)
   					{
@@ -124,7 +124,7 @@ $insertSQL = "INSERT INTO documentos (archivo, fecha, descripcion, nom_archivo, 
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/form.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>

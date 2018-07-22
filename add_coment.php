@@ -5,36 +5,6 @@ date_default_timezone_set('America/Monterrey');
 if (!isset($_SESSION)) {
   session_start();
 }
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
@@ -42,20 +12,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO eqcomentarios (id_com, equipo, comentario, fec_coment, estatus_operativo, activo, id_usuario) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                       GetSQLValueString($_POST['id_com'], "int"),
-                       GetSQLValueString($_POST['equipo'], "int"),
-                       GetSQLValueString($_POST['comentario'], "text"),
-                       GetSQLValueString($_POST['fec_coment'], "date"),
-					   GetSQLValueString($_POST['estatusop'], "int"),
-					   GetSQLValueString($_POST['activos'], "int"),
-					   GetSQLValueString($_SESSION['iduser'], "int")
+  $insertSQL = sprintf("INSERT INTO eqcomentarios (id_com, equipo, comentario, fec_coment, estatus_operativo, activo, id_usuario, idpozo, nombrepozo, uop) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                      $_POST['id_com'],
+                       $_POST['equipo'], 
+                       $_POST['comentario'], 
+                       $_POST['fec_coment'], 
+					   $_POST['estatusop'], 
+					   $_POST['activos'], 
+					   $_SESSION['iduser'],
+					   $_POST['idpozo'],
+					   $_POST['nompozo'],
+					   $_POST['uoperativas']
 					   );
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysqli_query($ResEquipos, $insertSQL) or die(mysqli_error($ResEquipos));
 
-  $insertGoTo = "detalle_equipo.php";
+  $insertGoTo = "detalle_equipo.php?close=true";
   if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
     $insertGoTo .= $_SERVER['QUERY_STRING'];
@@ -63,36 +36,6 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   header(sprintf("Location: %s", $insertGoTo));
 }
 
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $maxRows_comentarios = 2;
 $pageNum_comentarios = 0;
@@ -108,29 +51,37 @@ if (isset($_GET['idEquipo'])) {
   $colname_Equipos = $_GET['idEquipo'];
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_comentarios = sprintf("SELECT * FROM eqcomentarios WHERE equipo = %s ORDER BY fec_coment ASC", GetSQLValueString($colname_comentarios, "int"));
-$comentarios = mysql_query($query_comentarios, $ResEquipos) or die(mysql_error());
-$row_comentarios = mysql_fetch_assoc($comentarios);
-$totalRows_comentarios = mysql_num_rows($comentarios);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_comentarios = sprintf("SELECT * FROM eqcomentarios WHERE equipo = %s ORDER BY fec_coment ASC", $colname_comentarios);
+$comentarios = mysqli_query($ResEquipos, $query_comentarios) or die(mysqli_error($ResEquipos));
+$row_comentarios = mysqli_fetch_assoc($comentarios);
+$totalRows_comentarios = mysqli_num_rows($comentarios);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_Equipos = sprintf("SELECT * FROM cat_equipos WHERE idEquipo = %s", GetSQLValueString($colname_Equipos, "text"));
-$Equipos = mysql_query($query_Equipos, $ResEquipos) or die(mysql_error());
-$row_Equipos = mysql_fetch_assoc($Equipos);
-$totalRows_Equipos = mysql_num_rows($Equipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_Equipos = sprintf("SELECT * FROM cat_equipos WHERE idEquipo = %s", $colname_Equipos);
+$Equipos = mysqli_query($ResEquipos, $query_Equipos) or die(mysqli_error($ResEquipos));
+$row_Equipos = mysqli_fetch_assoc($Equipos);
+$totalRows_Equipos = mysqli_num_rows($Equipos);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_StatusOp = "SELECT * FROM cat_estatusop";
-$StatusOp = mysql_query($query_StatusOp, $ResEquipos) or die(mysql_error());
-$row_StatusOp = mysql_fetch_assoc($StatusOp);
-$totalRows_StatusOp = mysql_num_rows($StatusOp);
+$StatusOp = mysqli_query($ResEquipos, $query_StatusOp) or die(mysqli_error($ResEquipos));
+$row_StatusOp = mysqli_fetch_assoc($StatusOp);
+$totalRows_StatusOp = mysqli_num_rows($StatusOp);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_activos = "SELECT * FROM cat_activos WHERE visible = 1 ORDER BY subdir asc";
-$activos = mysql_query($query_activos, $ResEquipos) or die(mysql_error());
-$row_activos = mysql_fetch_assoc($activos);
-$totalRows_activos = mysql_num_rows($activos);
+$activos = mysqli_query($ResEquipos, $query_activos) or die(mysqli_error($ResEquipos));
+$row_activos = mysqli_fetch_assoc($activos);
+$totalRows_activos = mysqli_num_rows($activos);
+
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_uops = "SELECT * FROM cat_uop WHERE visible = 1 ORDER BY UnidadOperativa asc";
+$uops = mysqli_query($ResEquipos, $query_uops) or die(mysqli_error($ResEquipos));
+$row_uops = mysqli_fetch_assoc($uops);
+$totalRows_uops = mysqli_num_rows($uops);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -143,8 +94,9 @@ $totalRows_activos = mysql_num_rows($activos);
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<!-- <script src="js/jquery-migrate-1.4.1.js"></script> -->
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -152,12 +104,8 @@ $totalRows_activos = mysql_num_rows($activos);
 <script src="js/jquery.mobilemenu.js"></script>
 <script src="js/tmStickUp.js"></script>
 <script src="js/jquery.ui.totop.js"></script>
-<script>
- $(window).load(function(){
-  $().UItoTop({ easingType: 'easeOutQuart' });
-  $('#stuck_container').tmStickUp({});  
- }); 
-</script>
+<script src="js/jquery-ui.js"></script>
+
 <!--[if lt IE 8]>
  <div style=' clear: both; text-align:center; position: relative;'>
    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
@@ -173,6 +121,28 @@ $totalRows_activos = mysql_num_rows($activos);
     <script type='text/javascript' src='quickselect/quicksilver.js'></script>
   	<script type='text/javascript' src='quickselect/jquery.quickselect.js'></script>
   <link rel="stylesheet" type="text/css" href="quickselect/jquery.quickselect.css" />
+  <style>
+  .ui-autocomplete-loading {
+    background: white url("images/ajax-loader.gif") right center no-repeat;
+  }
+  </style>
+  <script>
+  $(function() {
+   
+    // configuramos el control para realizar la busqueda de pozos
+    $("#pozo").autocomplete({
+        source: "catalogos/buscar_pozo.php",
+        minLength: 2, /* basta con escribir dos letras */
+         
+		select: function( event, ui ) {
+        	$('input[name=nompozo]').val(ui.item.label);
+			$('input[name=idpozo]').val(ui.item.value);
+      	}
+	  
+    })
+                                                                   
+});
+</script>
 
 
 </head>
@@ -202,11 +172,11 @@ do {
 ?>
   <option value="<?php echo $row_StatusOp['id_statusop']?>"><?php echo utf8_encode($row_StatusOp['estatusop'])?></option>
   <?php
-} while ($row_StatusOp = mysql_fetch_assoc($StatusOp));
-  $rows = mysql_num_rows($StatusOp);
+} while ($row_StatusOp = mysqli_fetch_assoc($StatusOp));
+  $rows = mysqli_num_rows($StatusOp);
   if($rows > 0) {
-      mysql_data_seek($StatusOp, 0);
-	  $row_StatusOp = mysql_fetch_assoc($StatusOp);
+      mysqli_data_seek($StatusOp, 0);
+	  $row_StatusOp = mysqli_fetch_assoc($StatusOp);
   }
 ?>
 </select>
@@ -217,16 +187,42 @@ do {
 ?>
   <option value="<?php echo $row_activos['id_activo']?>" <?php if (!(strcmp($row_activos['id_activo'], htmlentities($row_Equipos['ACTIVO'], ENT_COMPAT, 'utf-8')))) {echo "selected=\"selected\"";} ?>><?php echo utf8_encode($row_activos['ACTIVO'])?></option>
   <?php
-} while ($row_activos = mysql_fetch_assoc($activos));
-  $rows = mysql_num_rows($activos);
+} while ($row_activos = mysqli_fetch_assoc($activos));
+  $rows = mysqli_num_rows($activos);
   if($rows > 0) {
-      mysql_data_seek($activos, 0);
-	  $row_activos = mysql_fetch_assoc($activos);
+      mysqli_data_seek($activos, 0);
+	  $row_activos = mysqli_fetch_assoc($activos);
   }
 ?>
 </select>
 <script type='text/javascript'>$(function(){ $('#Activos').quickselect(); });</script>
 <label for="activo">Activo</label>
+<select name="uoperativas" id="UOperativas">
+  <?php
+do {  
+?>
+  <option value="<?php echo $row_uops['id']?>" <?php if ($row_uops['refActivo']  = $row_activos['id_activo']) {echo "selected=\"selected\"";} ?>><?php echo utf8_encode($row_uops['UnidadOperativa'])?></option>
+  <?php
+} while ($row_uops = mysqli_fetch_assoc($uops));
+  $rows = mysqli_num_rows($uops);
+  if($rows > 0) {
+      mysqli_data_seek($uops, 0);
+	  $row_uops = mysqli_fetch_assoc($uops);
+  }
+?>
+</select>
+<script type='text/javascript'>$(function(){ $('#UOperativas').quickselect(); });</script>
+<label for="activo">Unidad Operativa</label>
+
+<input id="pozo"/>
+<label for="pozo">Pozo</label>
+
+Nota: si el nombre del pozo no aparece en la lista anterior, porfavor escribalo en el siguiente cuadro (Texto del pozo).
+<input name="nompozo"/>
+<input name="idpozo" type="hidden"/>
+<label for="nompozo">Texto Pozo</label>
+
+
 <input type="submit" value="Agregar Comentario" />
  <input type="hidden" name="id_com" value="" />
             <input type="hidden" name="MM_insert" value="form1" />
@@ -236,7 +232,9 @@ do {
 </body>
 </html>
 <?php
-mysql_free_result($comentarios);
+mysqli_free_result($comentarios);
 
-mysql_free_result($activos);
+mysqli_free_result($activos);
+
+mysqli_free_result($uops);
 ?>

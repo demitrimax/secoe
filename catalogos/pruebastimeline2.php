@@ -42,21 +42,21 @@ if (isset($_POST['anograf'])) {
 	$anofin = $_POST['anograf'];
   $VarAno = " AND anofin = ". $_POST['anograf'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_ProgEquipos = sprintf("SELECT * FROM v_intervenciones WHERE idequipo = %s".$VarAno, GetSQLValueString($colname_ProgEquipos, "int"));
-$ProgEquipos = mysql_query($query_ProgEquipos, $ResEquipos) or die(mysql_error());
-$row_ProgEquipos = mysql_fetch_assoc($ProgEquipos);
-$totalRows_ProgEquipos = mysql_num_rows($ProgEquipos);
+$ProgEquipos = mysql_query($query_ProgEquipos, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_ProgEquipos = mysqli_fetch_assoc($ProgEquipos);
+$totalRows_ProgEquipos = mysqli_num_rows($ProgEquipos);
 
 $colname_anosequipo = "-1";
 if (isset($_GET['idequipo'])) {
   $colname_anosequipo = $_GET['idequipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_anosequipo = sprintf("SELECT anofin FROM v_intervenciones WHERE idequipo = %s GROUP BY anofin ORDER BY anofin ASC", GetSQLValueString($colname_anosequipo, "int"));
-$anosequipo = mysql_query($query_anosequipo, $ResEquipos) or die(mysql_error());
-$row_anosequipo = mysql_fetch_assoc($anosequipo);
-$totalRows_anosequipo = mysql_num_rows($anosequipo);
+$anosequipo = mysql_query($query_anosequipo, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_anosequipo = mysqli_fetch_assoc($anosequipo);
+$totalRows_anosequipo = mysqli_num_rows($anosequipo);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -92,7 +92,7 @@ $totalRows_anosequipo = mysql_num_rows($anosequipo);
 	  ?>
 	  <?php echo "['".$row_ProgEquipos['programa']."', '".$row_ProgEquipos['intervencion']."', '".$row_ProgEquipos['pozo']."', new Date(".$fini_ano.", ".$fini_mes.", ".$fini_dia."), new Date(".$ffin_ano.", ".$ffin_mes.", ".$ffin_dia.")]"?>, 
 	  <?php $Colores = $Colores ."'".$row_ProgEquipos['CodColor']."', "; ?>
-	  <?php } while ($row_ProgEquipos = mysql_fetch_assoc($ProgEquipos)); ?>
+	  <?php } while ($row_ProgEquipos = mysqli_fetch_assoc($ProgEquipos)); ?>
             
     ]);
     

@@ -1,35 +1,6 @@
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
@@ -37,14 +8,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
-  $insertSQL = sprintf("INSERT INTO eficiencia_equipos (fecha, equipoid, eficiencia, observaciones) VALUES (%s, %s, %s, %s)",
-                       GetSQLValueString($_POST['fecha'], "date"),
-                       GetSQLValueString($_POST['equipoid'], "int"),
-                       GetSQLValueString($_POST['eficiencia'], "double"),
-                       GetSQLValueString($_POST['observaciones'], "text"));
-
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+  $insertSQL = sprintf("INSERT INTO eficiencia_equipos (fecha, equipoid, eficiencia, observaciones) VALUES (%s, %s, %s, '%s')",
+                       $_POST['fecha'], 
+                       $_POST['equipoid'], 
+                       $_POST['eficiencia'], 
+                       $_POST['observaciones']);
+	echo $insertSQL;
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysqli_query($ResEquipos, $insertSQL) or die(mysqli_error($ResEquipos));
 
   $insertGoTo = "detalle_equipo.php?idEquipo=" . $_GET['idEquipo'] . "";
   $Cerrar = 1;
@@ -60,11 +31,11 @@ $colname_Recordset1 = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_Recordset1 = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_Recordset1 = sprintf("SELECT * FROM cat_equipos WHERE idEquipo = %s", GetSQLValueString($colname_Recordset1, "int"));
-$Recordset1 = mysql_query($query_Recordset1, $ResEquipos) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_Recordset1 = sprintf("SELECT * FROM cat_equipos WHERE idEquipo = %s", $colname_Recordset1);
+$Recordset1 = mysqli_query($ResEquipos, $query_Recordset1) or die(mysqli_error($ResEquipos));
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="es">
@@ -120,5 +91,5 @@ function CerrarVentanaLightbox() {
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>

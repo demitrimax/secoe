@@ -37,12 +37,40 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_EstatusGen = "SELECT * FROM estatusgen";
 
-$EstatusGen = mysql_query($query_EstatusGen, $ResEquipos) or die(mysql_error());
-$row_EstatusGen = mysql_fetch_assoc($EstatusGen);
-$totalRows_EstatusGen = mysql_num_rows($EstatusGen);
+$EstatusGen = mysqli_query($ResEquipos, $query_EstatusGen) or die(mysqli_error($ResEquipos));
+$row_EstatusGen = mysqli_fetch_assoc($EstatusGen);
+$totalRows_EstatusGen = mysqli_num_rows($EstatusGen);
+
+// ** Logout the current user. **
+$logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
+if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
+  $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
+}
+
+if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
+  //to fully log out a visitor we need to clear the session varialbles
+  $_SESSION['MM_Username'] = NULL;
+  $_SESSION['MM_UserGroup'] = NULL;
+  $_SESSION['PrevUrl'] = NULL;
+  $_SESSION['AccesOK'] = NULL;
+  $_SESSION['usuario'] = NULL;
+  unset($_SESSION['MM_Username']);
+  unset($_SESSION['MM_UserGroup']);
+  unset($_SESSION['PrevUrl']);
+  unset($_SESSION['AccesOK']);
+  unset($_SESSION['usuario']);
+	
+  $logoutGoTo = "index.php";
+  if ($logoutGoTo) {
+    header("Location: $logoutGoTo");
+    exit;
+  }
+  
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,7 +82,7 @@ $totalRows_EstatusGen = mysql_num_rows($EstatusGen);
 <link rel="shortcut icon" href="favicon.png" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -119,7 +147,7 @@ $totalRows_EstatusGen = mysql_num_rows($EstatusGen);
                <li><a href="catalogos/cat_docs.php">Correspondencia</a></li>
                <li><a href="http://intranet.pemex.com/os/pep/unp/Paginas/default.aspx">Intranet PPS</a></li>
                <?php if (isset($_SESSION['usuario'])) { ?>
-               <li><?php echo $_SESSION['usuario']; ?></li>
+               <li>Bienvenido <?php echo $_SESSION['usuario']; ?> <a href="<?php echo $logoutAction ?>"> [Cerrar Sesión]</a></li>
              <?php 
 			 $correcodigo = "false";
 			 } ?>
@@ -136,8 +164,9 @@ $totalRows_EstatusGen = mysql_num_rows($EstatusGen);
     <div class="container">
       <div class="row">
         <div class="grid_4">
-          <a href="eq_oppps.php" class="banner "><div class="maxheight">
-            <div class="fa fa-cogs"></div>Equipos de Pemex</div>
+          <a href="cat_pozos.php" class="banner "><div class="maxheight">
+            <div class="fa fa-linode"></div>
+            Catálogo de Pozos</div>
           </a>
           <a href="eq_opcia.php" class="banner "><div class="maxheight">
             <div class="fa fa-lightbulb-o"></div>
@@ -177,7 +206,7 @@ $totalRows_EstatusGen = mysql_num_rows($EstatusGen);
         <div class="clear"></div>
       </div>
       <div class="grid_3">
-        <a href="#" class="support"><img src="images/support2.png" alt=""></a>
+        <a href="https://siav.pemex.com/vpn/index.html" class="support" target="_blank"><img src="images/support2.png" alt=""></a>
       </div>
     </div>
   </div>
@@ -207,8 +236,8 @@ $totalRows_EstatusGen = mysql_num_rows($EstatusGen);
           <div class="block-2">
             <img src="images/page1_img1.jpg" alt="" class="img_inner fleft">
             <div class="extra_wrapper">
-              <div class="text1"><a href="rep_subdir_activo.php">Reporte de Equipos por Subdirección</a></div>
-              <p>Reporte de equipos por Subdirección, incluye equipos de PPS y de Compañía operando, inactivos de pemex y de compañía con contrato vigente. Además podrá clasificar rápidamente el estatus de los equipos.
+              <div class="text1"><a href="operatividad.php">Reporte de Operatividad de Equipos</a></div>
+              <p>Reporte de operatividad de equipos, incluye equipos de PPS y de Compañía operando, inactivos de pemex y de compañía con contrato vigente. Además podrá clasificar rápidamente el estatus de los equipos.
               <br>
               <a href="rep_subdir_activo.php" class="link-1">más</a>
             </div>
@@ -282,6 +311,7 @@ $totalRows_EstatusGen = mysql_num_rows($EstatusGen);
           <div class="sub-copy">Website diseñado por <a href="http://intranet.pemex.com/os/pep/unp/gep/Paginas/Home.aspx" rel="nofollow">Gerencia de Estrategias y Planes</a></div>
       </div>
     </div>
+  </div>
   </div>  
 </footer>
 <a href="#" id="toTop" class="fa fa-chevron-up"></a>

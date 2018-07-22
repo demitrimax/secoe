@@ -5,7 +5,7 @@
    
   //Para crear el archivo
   function crear(){
-      $bd = new mysqli('localhost', 'moises', 'pemex11', 'secoe') or die("Error al conectar con MySQL-> ".mysql_error());
+      $bd = new mysqli('localhost', 'moises', 'pemex11', 'secoe') or die("Error al conectar con MySQL-> ".mysqli_error($ResEquipos));
 	  
     
        $stmt = $bd->prepare("SELECT NO_CONTRATO, tarifa, F_INICIO, F_FIN, EQUIPOID, ESQUEMA, NombreCia, Equipo, Caracteristicas FROM list_contratos");

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_det_ctto" value="name:NO_CONTRATO;datatype:string,name:F_INICIO;datatype:date,name:F_FIN;datatype:date,name:PLAZO;datatype:int,name:TARIFA;datatype:int,name:OBJETO_CTO;datatype:blob,name:NombreCia;datatype:string,name:ESQUEMA;datatype:string,name:ESTATUS;datatype:string,name:InicialCia;datatype:string,name:EQUIPOID;datatype:int,name:ID_CTTO;datatype:int,name:T_CTTO;datatype:int,name:TIPOCTTO;datatype:string" />
+</info>

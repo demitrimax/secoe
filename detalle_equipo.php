@@ -46,79 +46,18 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   header("Location: ". $MM_restrictGoTo); 
   exit;
 }
-?>
-<?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $colname_Recordset1 = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_Recordset1 = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_Recordset1 = sprintf("SELECT * FROM detalleequipo WHERE idEquipo = %s", GetSQLValueString($colname_Recordset1, "text"));
-$Recordset1 = mysql_query($query_Recordset1, $ResEquipos) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_Recordset1 = sprintf("SELECT * FROM detalleequipo WHERE idEquipo = %s", $colname_Recordset1);
+$Recordset1 = mysqli_query($ResEquipos, $query_Recordset1) or die(mysqli_error($ResEquipos));
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 
 $maxRows_comentarios = 1;
 $pageNum_comentarios = 0;
@@ -131,30 +70,36 @@ $colname_comentarios = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_comentarios = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_comentarios = sprintf("SELECT
 eqcomentarios.id_com,
 eqcomentarios.comentario,
 eqcomentarios.fec_coment,
 cat_estatusop.estatusop,
+cat_estatusop.semaforo,
+cat_estatusop.descripcion,
 cat_activos.ACTIVO,
-cat_activos.ACTIVO_CORTO
+cat_activos.ACTIVO_CORTO,
+cat_pozos.nombrepozo,
+cat_uop.UnidadOperativa
 FROM
 eqcomentarios
 LEFT JOIN cat_estatusop ON eqcomentarios.estatus_operativo = cat_estatusop.id_statusop
 LEFT JOIN cat_activos ON eqcomentarios.activo = cat_activos.id_activo
+LEFT JOIN cat_pozos ON eqcomentarios.idpozo = cat_pozos.idpozo
+LEFT JOIN cat_uop ON eqcomentarios.uop = cat_uop.id
 WHERE eqcomentarios.equipo = %s
 ORDER BY
-eqcomentarios.fec_coment DESC", GetSQLValueString($colname_comentarios, "int"));
+eqcomentarios.fec_coment DESC",$colname_comentarios);
 $query_limit_comentarios = sprintf("%s LIMIT %d, %d", $query_comentarios, $startRow_comentarios, $maxRows_comentarios);
-$comentarios = mysql_query($query_limit_comentarios, $ResEquipos) or die(mysql_error());
-$row_comentarios = mysql_fetch_assoc($comentarios);
+$comentarios = mysqli_query($ResEquipos, $query_limit_comentarios) or die(mysql_error($ResEquipos));
+$row_comentarios = mysqli_fetch_assoc($comentarios);
 
 if (isset($_GET['totalRows_comentarios'])) {
   $totalRows_comentarios = $_GET['totalRows_comentarios'];
 } else {
-  $all_comentarios = mysql_query($query_comentarios);
-  $totalRows_comentarios = mysql_num_rows($all_comentarios);
+  $all_comentarios = mysqli_query($ResEquipos, $query_comentarios);
+  $totalRows_comentarios = mysqli_num_rows($all_comentarios);
 }
 $totalPages_comentarios = ceil($totalRows_comentarios/$maxRows_comentarios)-1;
 
@@ -162,18 +107,18 @@ $colname_documentos = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_documentos = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_documentos = sprintf("SELECT * FROM documentos WHERE equipo_asociado = %s ORDER BY fecha DESC", GetSQLValueString($colname_documentos, "int"));
-$documentos = mysql_query($query_documentos, $ResEquipos) or die(mysql_error());
-$row_documentos = mysql_fetch_assoc($documentos);
-$totalRows_documentos = mysql_num_rows($documentos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_documentos = sprintf("SELECT * FROM documentos WHERE equipo_asociado = %s AND estatus = 1 ORDER BY fecha DESC", $colname_documentos);
+$documentos = mysqli_query($ResEquipos, $query_documentos) or die(mysqli_error($ResEquipos));
+$row_documentos = mysqli_fetch_assoc($documentos);
+$totalRows_documentos = mysqli_num_rows($documentos);
 
 $colname_contratos = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_contratos = $_GET['idEquipo'];
   $colname_contratos = $row_Recordset1['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_contratos = sprintf("SELECT
 contrato.ID_CTTO,
 contrato.NO_CONTRATO,
@@ -195,48 +140,40 @@ contrato
 INNER JOIN cat_cias ON contrato.COMPANIA = cat_cias.id_cia
 INNER JOIN cat_esquemacto ON contrato.ESQUEMA = cat_esquemacto.IDESQ
 INNER JOIN cat_ctostatus ON contrato.ESTATUS = cat_ctostatus.ID_STATUS
-LEFT JOIN cat_tctto ON contrato.T_CTTO = cat_tctto.ID WHERE EQUIPOID = %s", GetSQLValueString($colname_contratos, "int"));
-$contratos = mysql_query($query_contratos, $ResEquipos) or die(mysql_error());
-$row_contratos = mysql_fetch_assoc($contratos);
-$totalRows_contratos = mysql_num_rows($contratos);
+LEFT JOIN cat_tctto ON contrato.T_CTTO = cat_tctto.ID WHERE EQUIPOID = %s", $colname_contratos);
+$contratos = mysqli_query($ResEquipos, $query_contratos) or die(mysqli_error($ResEquipos));
+$row_contratos = mysqli_fetch_assoc($contratos);
+$totalRows_contratos = mysqli_num_rows($contratos);
 
-$colname_cronograma = "-1";
-if (isset($_GET['idEquipo'])) {
-  $colname_cronograma = $_GET['idEquipo'];
-}
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_cronograma = sprintf("SELECT a.id, a.fechacro, b.cat_crono FROM cronograma a, cat_cronograma b WHERE a.cronograma = b.id and a.equipo = %s", GetSQLValueString($colname_cronograma, "int"));
-$cronograma = mysql_query($query_cronograma, $ResEquipos) or die(mysql_error());
-$row_cronograma = mysql_fetch_assoc($cronograma);
-$totalRows_cronograma = mysql_num_rows($cronograma);
 
 $colname_eficiencia = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_eficiencia = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_eficiencia = sprintf("SELECT * FROM eficiencia_equipos WHERE equipoid = %s ORDER BY fecha DESC LIMIT 1", GetSQLValueString($colname_eficiencia, "int"));
-$eficiencia = mysql_query($query_eficiencia, $ResEquipos) or die(mysql_error());
-$row_eficiencia = mysql_fetch_assoc($eficiencia);
-$totalRows_eficiencia = mysql_num_rows($eficiencia);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_eficiencia = sprintf("SELECT * FROM eficiencia_equipos WHERE equipoid = %s ORDER BY fecha DESC LIMIT 1", $colname_eficiencia);
+$eficiencia = mysqli_query($ResEquipos, $query_eficiencia) or die(mysqli_error($ResEquipos));
+$row_eficiencia = mysqli_fetch_assoc($eficiencia);
+$totalRows_eficiencia = mysqli_num_rows($eficiencia);
 
 $colname_ProgEquipos = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_ProgEquipos = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_ProgEquipos = sprintf("SELECT * FROM v_intervenciones WHERE idequipo = %s", GetSQLValueString($colname_ProgEquipos, "int"));
-$ProgEquipos = mysql_query($query_ProgEquipos, $ResEquipos) or die(mysql_error());
-$row_ProgEquipos = mysql_fetch_assoc($ProgEquipos);
-$totalRows_ProgEquipos = mysql_num_rows($ProgEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_ProgEquipos = sprintf("SELECT * FROM v_intervenciones WHERE idequipo = %s", $colname_ProgEquipos);
+$ProgEquipos = mysqli_query($ResEquipos, $query_ProgEquipos) or die(mysqli_error($ResEquipos));
+$row_ProgEquipos = mysqli_fetch_assoc($ProgEquipos);
+$totalRows_ProgEquipos = mysqli_num_rows($ProgEquipos);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_programas = sprintf("SELECT programa, unicoprograma FROM v_intervenciones WHERE idequipo = %s GROUP BY programa", GetSQLValueString($colname_ProgEquipos, "int"));
-$programas = mysql_query($query_programas, $ResEquipos) or die(mysql_error());
-$row_programas = mysql_fetch_assoc($programas);
-$totalRows_programas = mysql_num_rows($programas);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_programofi = sprintf("SELECT programoficial, programa, unicoprograma FROM v_intervenciones WHERE idequipo = %s GROUP BY programoficial ORDER BY
+v_intervenciones.unicoprograma ASC", $colname_ProgEquipos);
+$programofi = mysqli_query($ResEquipos, $query_programofi) or die(mysqli_error($ResEquipos));
+$row_programofi = mysqli_fetch_assoc($programofi);
+$totalRows_programofi = mysqli_num_rows($programofi);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_estatusmantto = sprintf("SELECT
 estatus_mantto.id_estatus,
 estatus_mantto.id_equipo,
@@ -249,24 +186,40 @@ FROM
 estatus_mantto
 INNER JOIN cat_estatus ON estatus_mantto.id_estatus = cat_estatus.ID_ESTATUS
 WHERE id_equipo = %s
-ORDER BY estatus_mantto.fecha DESC", GetSQLValueString($colname_ProgEquipos, "int"));
-$estatusmantto = mysql_query($query_estatusmantto, $ResEquipos) or die(mysql_error());
-$row_estatusmantto = mysql_fetch_assoc($estatusmantto);
-$totalRows_estatusmantto = mysql_num_rows($estatusmantto);
+ORDER BY estatus_mantto.fecha DESC", $colname_ProgEquipos);
+$estatusmantto = mysqli_query($ResEquipos, $query_estatusmantto) or die(mysql_error($ResEquipos));
+$row_estatusmantto = mysqli_fetch_assoc($estatusmantto);
+$totalRows_estatusmantto = mysqli_num_rows($estatusmantto);
 
 
 $NoContrato = $row_contratos['NO_CONTRATO'];
 $idcia = $row_Recordset1['Cia'];
+
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_usuarios = sprintf("SELECT * FROM usuarios WHERE fusuario = %s", $_SESSION['MM_Username']);
+//echo $query_usuarios."<br>";
+$usuario = mysqli_query($ResEquipos, $query_usuarios) or die(mysqli_error($ResEquipos));
+$row_usuario = mysqli_fetch_assoc($usuario);
+$totalRows_usuario = mysqli_num_rows($usuario);
 
 //SUPONES QUE EL USUARIO SE LOGEO CORRECTAMENTE
  $usuario = $_SESSION['MM_Username'];
  $fechahora = date("Y-m-d H:i:s");
  $pagina_actual = $_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING'];
  $ipadress = $_SERVER['REMOTE_ADDR'];
- mysql_select_db($database_ResEquipos, $ResEquipos);
+ mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_log = "INSERT INTO registros (pagina, usuario, fechahora, ip) VALUES ('$pagina_actual', '$usuario', '$fechahora', '$ipadress')";
 //echo $query_log;
-$registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
+$registros = mysqli_query($ResEquipos, $query_log) or die(mysqli_error($ResEquipos));
+
+//controlar el cierre de la página si se cargo en un iframe con lightbox
+$close = "";
+$boton = "";
+if (isset($_GET['close'])) {
+  $close = $_GET['close'];
+  	
+		$boton = "<button onclick='$.lightbox().close();'>Cerrar</button>";
+}
 
 ?>
 <!DOCTYPE html>
@@ -280,7 +233,7 @@ $registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responstable.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -293,6 +246,7 @@ $registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
   $().UItoTop({ easingType: 'easeOutQuart' });
   $('#stuck_container').tmStickUp({});  
  }); 
+ 
 </script>
 <!--[if lt IE 8]>
  <div style=' clear: both; text-align:center; position: relative;'>
@@ -388,6 +342,7 @@ $registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
 </head>
 <body>
 <script type="text/javascript">
+
 $(document).ready( function () {
     $('#filest')
 		.addClass( 'nowrap' )
@@ -409,7 +364,7 @@ $(document).ready( function () {
     <div class="row">
       <div class="grid_12 rel">
         <h1>
-          <a href="index.html">
+          <a href="index.php">
             <img src="images/logo2.png" alt="Logo alt">
           </a>
         </h1>
@@ -444,14 +399,21 @@ $(document).ready( function () {
   <div class="container">
     <div class="row">
     <div class="grid_12">
-        <h3><?php echo $row_Recordset1['Equipo']; ?> </h3>
+        <h3><?php echo $row_Recordset1['Equipo'] . $boton; ?> </h3>
         <img src="<?php echo $row_Recordset1['imagen']; ?>" alt="" width="190" height="220" class="img_inner fleft" />
         <div class="extra_wrapper">
      <table border="0">
   <tr>
     <th class="ta__left" scope="row"><strong>No. Equipo:</strong></th>
     <th width="20" class="ta__left" scope="row">&nbsp;</th>
+
     <td><?php echo $row_Recordset1['CLVE_EQUIPO']; ?></td>
+  </tr>
+  <tr>
+    <th class="ta__left" scope="row"><strong>Nombre Corto:</strong></th>
+    <th width="20" class="ta__left" scope="row">&nbsp;</th>
+
+    <td><?php echo $row_Recordset1['Equ_corto']; ?></td>
   </tr>
   <tr>
     <th class="ta__left" scope="row"><strong>Tipo de Equipo:</strong></th>
@@ -542,8 +504,13 @@ $(document).ready( function () {
 			<time datetime="<?php echo date("d/m/y H:i:s", strtotime($row_comentarios['fec_coment'])); ?> "><span class="count"><?php echo $DiaComent; ?></span><strong><?php echo $MesComent; ?></strong><?php echo $AnoComent; ?></time>
 				<div class="extra_wrapper">
                 <a href="catalogos/detalle_comentarios.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>&lightbox[width]=600&lightbox[height]=500&lightbox[iframe]=true" class="lightbox"><span class="fa fa-comments"></span><?php echo $totalRows_comentarios; ?></a>
-				<p><span class="fwn"><a href="#">Estado: <?php echo utf8_encode($row_comentarios['estatusop']); ?></a></span><em>Publicado por <a href="#">Admin</a></em><?php echo $_SESSION['iduser'];?></p>
-                <strong><?php echo $row_comentarios['ACTIVO']; ?></strong><br>
+				<p><span class="fwn"><a href="#">Estado: <?php echo utf8_encode($row_comentarios['estatusop']); ?></a><img src="images/sem/sem_<?php echo $row_comentarios['semaforo']; ?>.png" width="16" height="16" title="<?php echo utf8_encode($row_comentarios['descripcion']); ?>">
+                </span><em>Publicado por <a href="#"><?php echo $row_usuario['fusuario'];?></a></em>
+                <?php if (!($row_comentarios['nombrepozo']=="")) { ?>
+                <span> Pozo: <?php echo utf8_encode($row_comentarios['nombrepozo']); ?>
+                <?php } ?>
+                </p>
+                <strong><?php echo $row_comentarios['ACTIVO'].", ".$row_comentarios['UnidadOperativa']; ?></strong><br>
                 <?php echo $row_comentarios['comentario']; ?>
 				</div>
             </div>
@@ -551,20 +518,10 @@ $(document).ready( function () {
         <a href="catalogos/detalle_comentarios.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>&lightbox[width]=600&lightbox[height]=500&lightbox[iframe]=true" class="lightbox">Ver más comentarios <?php echo $totalRows_comentarios; ?> </a> | <a href="add_coment.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>&lightbox[width]=600&lightbox[height]=500&lightbox[iframe]=true" class="lightbox">Agregar Comentarios</a> | <a href="mod_coment.php?id_com=<?php echo $row_comentarios['id_com']; ?>&lightbox[width]=600&lightbox[height]=500&lightbox[iframe]=true" class="lightbox">Modificar</a>
 <?php } ?>
           <p>
-          <?php if ($totalRows_cronograma > 0) { // Show if recordset not empty ?>
-              Cronograma:</p>
-              <table border="0">
-                <?php do { ?>
-                  <tr>
-                    <td width="185"><strong><?php echo $row_cronograma['cat_crono']; ?></strong></td>
-                    <td width="78"><?php echo date("d/m/y",strtotime($row_cronograma['fechacro'])); ?></td>
-                  </tr>
-                  <?php } while ($row_cronograma = mysql_fetch_assoc($cronograma)); ?>  
-              </table>
-              <?php } ?>
+         
                <p>
                <?php if ($totalRows_contratos > 0) { // Show if recordset not empty ?>
-                <table border="0" class="responstable" id="contratost" width="100%">
+        <table border="0" class="responstable" id="contratost" width="100%">
                   
                   <tr>
                     <th>Contrato</th>
@@ -587,7 +544,7 @@ $(document).ready( function () {
                       <td> <?php echo $row_contratos['ESQUEMA']; ?> </td>
                       <td><?php echo number_format($row_contratos['TARIFA']); ?></td>
                     </tr>
-                    <?php } while ($row_contratos = mysql_fetch_assoc($contratos)); ?>
+                    <?php } while ($row_contratos = mysqli_fetch_assoc($contratos)); ?>
                     
               </table>
               </p>
@@ -596,7 +553,24 @@ $(document).ready( function () {
          <?php if ($totalRows_ProgEquipos > 0) { // Show if recordset not empty ?>
 
 <p>
-  <input type="button" id="focus2016" value="Solo mostrar 2016"> <input type="button" id="focus2016-2017" value="2016 y 2017"><br>
+  <h4> Detalle de Intervenciones Progamadas </h4><a name="Intervenciones"></a>
+  Seleccion el Programa Operativo: <br>
+   <?php if ($totalRows_programofi > 0) { // Show if recordset not empty ?>
+   		 <?php $contG = 0; ?>
+		 <?php do { ?>
+      		<input type="checkbox" name="ProgOperativos" value="<?php echo $row_programofi['programoficial']; ?>" id="CheckboxGroup1_<?php echo $contG;?>">
+      		<label for="CheckboxGroup1_<?php echo $contG;?>"><span></span><?php echo $row_programofi['programoficial']; ?></label>
+    	<?php 
+		$contG++;
+		} while ($row_programofi = mysqli_fetch_assoc($programofi)); ?>
+		<input id="btnSubmit" type="button" value="Actualizar" />
+		
+	<?php } ?>
+    </p>
+ <p>   
+<!--<textarea id="txtData" rows="5"> </textarea><br>-->
+<?php $anio_actual = date('Y'); ?>
+<input type="button" id="focusanio" value="Solo mostrar <?php echo $anio_actual; ?>"> <input type="button" id="focus2016-2017" value="2016 y 2017"><br>
   <input type="button" id="fit" value="Mostrar todo"><br>
  </p>
 <div id="visualization">
@@ -614,17 +588,18 @@ $contador2 = -1;
   // DOM element where the Timeline will be attached
   var container = document.getElementById('visualization');
   
+  var post_data = {"idEquipo": <?php echo $colname_ProgEquipos; ?>}; 
    
   $.ajax({
     type: "GET",
-	data: {"idEquipo" : <?php echo $colname_ProgEquipos; ?>},
+	data: post_data,
 	dataType: "json",
 	url: 'catalogos/ganttdatos.php',
 	
     success: function (data) {
       // hide the "loading..." message
       //document.getElementById('loading').style.display = 'none';
-		//txtData.value = JSON.stringify(data['datos'], null, 2);
+		//txtData.value = JSON.stringify(data, null, 2);
 		//txtGrupos.value = JSON.stringify(data['grupos'], null, 2);
       // DOM element where the Timeline will be attached
       var container = document.getElementById('visualization');
@@ -673,7 +648,45 @@ $contador2 = -1;
             end:   range.end.valueOf()   + interval * percentage
         });
     }
+					//document.getElementById('zoomIn').onclick    = function () { zoom(-0.2); };
+					
+					$("#btnSubmit").click(function(){
+					var selectedPOT = new Array();
+					$('input[name="ProgOperativos"]:checked').each(function() {
+						selectedPOT.push(this.value);
+					});
+					var post_datos = {"idEquipo": <?php echo $colname_ProgEquipos; ?>, "programa": selectedPOT}; 
+					//("#visualization").load(post_datos);
+					$.ajax({
+    					type: "GET",
+						data: post_datos,
+						dataType: "json",
+						url: 'catalogos/ganttdatos.php',
+    					success: function (data) {
+							//txtData.value = JSON.stringify(data, null, 2);
+							//txtData.value = txtData.value + JSON.stringify(post_datos, null, 2);
+							
+							var grupos = new vis.DataSet(data['grupos']);
+      						var items = new vis.DataSet(data['datos']);
+							
+									timeline.setGroups(grupos);
+  									timeline.setItems(items);
+		
+									timeline.fit
+						}
 
+               		});
+			   		
+				
+				//alert("Numero de POTs Seleccionado: "+selectedPOT.length+"\n"+"Y, son: "+selectedPOT);
+				});
+	
+	function ActuaizaDatos(datos) {
+  		
+
+		alert("datos actualizados");
+	}
+	
   // Create a Timeline
 	var timeline = new vis.Timeline(container);
   timeline.setOptions(options);
@@ -685,8 +698,8 @@ $contador2 = -1;
     document.getElementById('moveLeft').onclick  = function () { move( 0.2); };
     document.getElementById('moveRight').onclick = function () { move(-0.2); };
   
-  document.getElementById('focus2016').onclick = function() {
-	  timeline.setWindow('2016-01-01', '2016-12-31');
+  document.getElementById('focusanio').onclick = function() {
+	  timeline.setWindow('<?php echo $anio_actual; ?>-01-01', '<?php echo $anio_actual; ?>-12-31');
   }
     document.getElementById('focus2016-2017').onclick = function() {
 	  timeline.setWindow('2016-01-01', '2017-12-31');
@@ -702,6 +715,7 @@ $contador2 = -1;
 <?php } ?>
                
 			   <?php if ($totalRows_documentos > 0) { // Show if recordset not empty ?>
+ <h4> Documentos relacionados </h4>
                 <table border="0" class="display" id="filest" width="100%">
                   <thead>
                   <tr>
@@ -715,17 +729,27 @@ $contador2 = -1;
                     <tr>
                       <td><?php echo date("d/m/y H:m:s", strtotime($row_documentos['fecha'])); ?></td>
                       <td><a href="doc_view.php?id_doc=<?php echo $row_documentos['id_doc']; ?>" target="_blank"><?php echo $row_documentos['descripcion']; ?></a></td>
-                      <td><a href="doc_down.php?id_doc=<?php echo $row_documentos['id_doc']; ?>" target="_blank">Descargar</a> | Modificar | Eliminar</td>
+                      <td><a href="doc_down.php?id_doc=<?php echo $row_documentos['id_doc']; ?>" target="_blank">Descargar</a> | Modificar | <a href="javascript:ConfirmEliminar(<?php echo $row_documentos['id_doc']; ?>);"> Eliminar</a></td>
                     </tr>
-                    <?php } while ($row_documentos = mysql_fetch_assoc($documentos)); ?>
-                    </tbody>
+                    <?php } while ($row_documentos = mysqli_fetch_assoc($documentos)); ?>
+                  </tbody>
               </table>
               </p>
-              <?php } ?>
+              <a name="Documentos"></a>
+              <script>
+				function ConfirmEliminar(idoc) {
+    				var r = confirm("Está seguro que desea eliminar el documento?");
+					if (r == true) {
+						alert("Se eliminará el documento "+idoc);
+						window.location="elim_doc.php?id_doc="+idoc+"&idEquipo="+<?php echo $colname_ProgEquipos; ?>;
+						}
+					}
+</script>
+			  <?php } ?>
               
           </table>
           <p><a href="cat_equipos.php">Regresar</a> | <a href="add_coment.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>">Agregar Comentario</a> | <a href="add_imgequipo.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>">Agregar Imagen</a> | <a href="agregardocu.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>">Agregar Documento</a> | <a href="Edit_Equipo.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>">Editar Equipo</a> | <a href="catalogos/Agregar_Ctto.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>&no_ctto=<?php echo $NoContrato ?>&idcia=<?php echo $idcia ?>">Agregar Contrato</a> | <a href="add_eficiencia.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>&lightbox[width]=500&lightbox[height]=300&lightbox[modal]=true" class="lightbox">Agregar Eficiencia</a> | <?php if ($_SESSION['permiso']=="admin") { ?><a href="catalogos/eliminar_equipo.php?idEquipo=<?php echo $row_Recordset1['idEquipo']; ?>">Eliminar Equipo</a> <?php } ?></p>
-        </div>
+      </div>
     
       <div class="grid_12">
         <h3></h3>
@@ -751,21 +775,28 @@ $contador2 = -1;
   </div>  
 </footer>
 <a href="#" id="toTop" class="fa fa-chevron-up"></a>
+<?php if ($close == "true" ) { ?>
+		<script type="text/javascript">
+  			jQuery(document).ready(function($){
+			  	//alert('Esta ventana se cerrará');
+				$.lightbox().close();
+				window.opener.location.reload(false);
+  });
+</script>
+<?php	}		?>
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 
-mysql_free_result($comentarios);
+mysqli_free_result($comentarios);
 
-mysql_free_result($documentos);
+mysqli_free_result($documentos);
 
-mysql_free_result($contratos);
+mysqli_free_result($contratos);
 
-mysql_free_result($cronograma);
+mysqli_free_result($eficiencia);
 
-mysql_free_result($eficiencia);
-
-mysql_free_result($ProgEquipos);
+mysqli_free_result($ProgEquipos);
 
 ?>

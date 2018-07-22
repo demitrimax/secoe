@@ -31,67 +31,67 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_Recordset1 = "SELECT 
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo =4 OR TEquipo =8 OR TEquipo =9)) AS EQSAO, 
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo =4 OR TEquipo =8 OR TEquipo =9)) AS EQSDCA, 
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo =4 OR TEquipo =8 OR TEquipo =9)) AS EQSPAS,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo =4 OR TEquipo =8 OR TEquipo =9)) AS EQSPCGNA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo =4 OR TEquipo =8 OR TEquipo =9)) AS EQSPCT,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo =4 OR TEquipo =8 OR TEquipo =9)) AS EQSPCNC,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS AE_SAO,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS MOD_SAO,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS SS_SAO,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS EMP_SAO,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS T_SAO,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS AE_SDCA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS MOD_SDCA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS SS_SDCA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS EMP_SDCA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS T_SDCA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS AE_SPAS,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS MOD_SPAS,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS SS_SPAS,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS EMP_SPAS,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS T_SPAS,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS AE_SPCGNA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS MOD_SPCGNA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS SS_SPCGNA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS EMP_SPCGNA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS T_SPCGNA,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS AE_SPCT,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS MOD_SPCT,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS SS_SPCT,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS EMP_SPCT,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS T_SPCT,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS AE_SPCNC,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS MOD_SPCNC,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS SS_SPCNC,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS EMP_SPCNC,
-(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5)) AS T_SPCNC,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 1 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS AE,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 2 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS MODD,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 3 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS SS,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 9 AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS EMP,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 4 OR TEquipo = 8) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS TERR,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS TTOTAL,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1)) AS PMXSAO,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1)) AS CIASAO,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 2)) AS PMXSDCA,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 2)) AS CIASDCA,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 3)) AS PMXSPAS,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 3)) AS CIASPAS,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 4)) AS PMXSPCGNA,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 4)) AS CIASPCGNA,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 5)) AS PMXSPCT,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 5)) AS CIASPCT,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 6)) AS PMXSPCNC,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 6)) AS CIASPCNC,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia = 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS PMXTTAL,
-(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE (TEquipo = 1 OR TEquipo = 2 OR TEquipo = 3 OR TEquipo = 4 OR TEquipo = 8 OR TEquipo = 9) AND (Cia <> 2) AND (ESTATUS = 1 OR ESTATUS = 2 OR ESTATUS = 5) AND (SUBDIR = 1 OR SUBDIR = 2 OR SUBDIR = 3 OR SUBDIR = 4 OR SUBDIR = 5 OR SUBDIR = 6)) AS CIATTAL";
-$Recordset1 = mysql_query($query_Recordset1, $ResEquipos) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND ESTATUS IN (1, 2, 5) AND TEquipo IN (1, 2, 3, 4, 8, 9)) AS EQSAO, 
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND ESTATUS IN (1, 2, 5) AND TEquipo IN (1, 2, 3, 4, 8, 9)) AS EQSDCA, 
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND ESTATUS IN (1, 2, 5) AND TEquipo IN (1, 2, 3, 4, 8, 9)) AS EQSPAS,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND ESTATUS IN (1, 2, 5) AND TEquipo IN (1, 2, 3, 4, 8, 9)) AS EQSPCGNA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND ESTATUS IN (1, 2, 5) AND TEquipo IN (1, 2, 3, 4, 8, 9)) AS EQSPCT,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND ESTATUS IN (1, 2, 5) AND TEquipo IN (1, 2, 3, 4, 8, 9)) AS EQSPCNC,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 1 AND ESTATUS IN (1, 2, 5)) AS AE_SAO,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 2 AND ESTATUS IN (1, 2, 5)) AS MOD_SAO,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 3 AND ESTATUS IN (1, 2, 5)) AS SS_SAO,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo = 9 AND ESTATUS IN (1, 2, 5)) AS EMP_SAO,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 1 AND TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5)) AS T_SAO,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 1 AND ESTATUS IN (1, 2, 5)) AS AE_SDCA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 2 AND ESTATUS IN (1, 2, 5)) AS MOD_SDCA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 3 AND ESTATUS IN (1, 2, 5)) AS SS_SDCA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo = 9 AND ESTATUS IN (1, 2, 5)) AS EMP_SDCA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 2 AND TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5)) AS T_SDCA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 1 AND ESTATUS IN (1, 2, 5)) AS AE_SPAS,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 2 AND ESTATUS IN (1, 2, 5)) AS MOD_SPAS,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 3 AND ESTATUS IN (1, 2, 5)) AS SS_SPAS,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo = 9 AND ESTATUS IN (1, 2, 5)) AS EMP_SPAS,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 3 AND TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5)) AS T_SPAS,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 1 AND ESTATUS IN (1, 2, 5)) AS AE_SPCGNA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 2 AND ESTATUS IN (1, 2, 5)) AS MOD_SPCGNA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 3 AND ESTATUS IN (1, 2, 5)) AS SS_SPCGNA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo = 9 AND ESTATUS IN (1, 2, 5)) AS EMP_SPCGNA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 4 AND TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5)) AS T_SPCGNA,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 1 AND ESTATUS IN (1, 2, 5)) AS AE_SPCT,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 2 AND ESTATUS IN (1, 2, 5)) AS MOD_SPCT,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 3 AND ESTATUS IN (1, 2, 5)) AS SS_SPCT,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo = 9 AND ESTATUS IN (1, 2, 5)) AS EMP_SPCT,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 5 AND TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5)) AS T_SPCT,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 1 AND ESTATUS IN (1, 2, 5)) AS AE_SPCNC,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 2 AND ESTATUS IN (1, 2, 5)) AS MOD_SPCNC,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 3 AND ESTATUS IN (1, 2, 5)) AS SS_SPCNC,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo = 9 AND ESTATUS IN (1, 2, 5)) AS EMP_SPCNC,
+(SELECT COUNT(cat_equipos.Equipo) FROM cat_equipos WHERE SUBDIR = 6 AND TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5)) AS T_SPCNC,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 1 AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS AE,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 2 AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS MODD,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 3 AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS SS,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo = 9 AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS EMP,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (4, 8) AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS TERR,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS TTOTAL,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 1)) AS PMXSAO,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 1)) AS CIASAO,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 2)) AS PMXSDCA,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 2)) AS CIASDCA,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 3)) AS PMXSPAS,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 3)) AS CIASPAS,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 4)) AS PMXSPCGNA,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 4)) AS CIASPCGNA,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 5)) AS PMXSPCT,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 5)) AS CIASPCT,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 6)) AS PMXSPCNC,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND (SUBDIR = 6)) AS CIASPCNC,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia = 2) AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS PMXTTAL,
+(SELECT Count(cat_equipos.Equipo) FROM cat_equipos WHERE TEquipo IN (1, 2, 3, 4, 8, 9) AND (Cia <> 2) AND ESTATUS IN (1, 2, 5) AND SUBDIR IN (1, 2, 3, 4, 5, 6)) AS CIATTAL";
+$Recordset1 = mysql_query($query_Recordset1, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 ?>
 <!DOCTYPE html>
 <html lang="es" xmlns:spry="http://ns.adobe.com/spry">
@@ -106,7 +106,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <link href="../SpryAssets/SpryMasterDetail.css" rel="stylesheet" type="text/css">
 <link href="../SpryAssets/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -308,7 +308,7 @@ tr.details td.details-control {
               <td width="200"><?php echo $row_Recordset1['TTOTAL'];?></td>
             </tr>
           </table>
-          <p>Nota: No se contabilizan equipos aligerados, snubing, lacustres y equipos escuela.</p>
+          <p>Nota: No se contabilizan equipos aligerados, snubing y lacustres.</p>
           <div id="canvas-holder">
 			Distribución de Equipos
             <canvas id="chart-area" width="300" height="300"/>
@@ -371,7 +371,7 @@ tr.details td.details-control {
         </div>
             </ul>
       </div>
-          Resumen de Intervenciones | <a href="rep_estatus_equipos.php">Equipos por Estatus</a></div>
+          Resumen de Intervenciones | <a href="rep_estatus_equipos.php">Equipos por Estatus</a> | <a href="operatividad.php">OPERATIVIDAD DE EQUIPOS</a> |</div>
     
       <div class="grid_12">
     <a href="index.php">Regresar</a> </div>
@@ -403,5 +403,5 @@ tr.details td.details-control {
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>

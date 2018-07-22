@@ -76,7 +76,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_CATEquipos = "SELECT
 cat_equipos.idEquipo,
 cat_equipos.CLVE_EQUIPO,
@@ -97,9 +97,9 @@ INNER JOIN cat_tipoequipo ON cat_tipoequipo.idtequipo = cat_equipos.TEquipo
 INNER JOIN cat_equipocaracteristicas ON cat_equipocaracteristicas.IdCar = cat_equipos.Caracteristicas
 INNER JOIN cat_cias ON cat_cias.id_cia = cat_equipos.Cia
 INNER JOIN cat_estatus ON cat_estatus.ID_ESTATUS = cat_equipos.ESTATUS WHERE (cat_equipos.ESTATUS = 1 OR cat_equipos.ESTATUS = 2) AND cat_equipos.CIA = 2";
-$CATEquipos = mysql_query($query_CATEquipos, $ResEquipos) or die(mysql_error());
-$row_CATEquipos = mysql_fetch_assoc($CATEquipos);
-$totalRows_CATEquipos = mysql_num_rows($CATEquipos);
+$CATEquipos = mysql_query($query_CATEquipos, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_CATEquipos = mysqli_fetch_assoc($CATEquipos);
+$totalRows_CATEquipos = mysqli_num_rows($CATEquipos);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +111,7 @@ $totalRows_CATEquipos = mysql_num_rows($CATEquipos);
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -232,7 +232,7 @@ $(document).ready(function() {
                 <td><?php echo $row_CATEquipos['InicialCia']; ?></td>
                 <td> <img src="images/sem/sem_<?php echo $row_CATEquipos['SEMAFORO']; ?>.png" width="16" height="16" title="<?php echo utf8_encode($row_CATEquipos['ESTATUS']); ?>"></td>
               </tr>
-              <?php } while ($row_CATEquipos = mysql_fetch_assoc($CATEquipos)); ?>
+              <?php } while ($row_CATEquipos = mysqli_fetch_assoc($CATEquipos)); ?>
       </tbody>
     </table>
     <p>&nbsp;</p>
@@ -261,5 +261,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($CATEquipos);
+mysqli_free_result($CATEquipos);
 ?>

@@ -21,36 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
@@ -59,13 +30,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $insertSQL = sprintf("INSERT INTO imagenes (id_img, id_equipo, imagen, descripcionimg) VALUES (%s, %s, %s, %s)",
-                       GetSQLValueString($_POST['id_img'], "int"),
-                       GetSQLValueString($_POST['id_equipo'], "int"),
-                       GetSQLValueString("imgequipos/".$_GET['idEquipo'].".jpg", "text"),
-                       GetSQLValueString($_POST['descripcionimg'], "text"));
+                       $_POST['id_img'],
+                       $_POST['id_equipo'],
+                       "imgequipos/".$_GET['idEquipo'].".jpg",
+                       $_POST['descripcionimg']);
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysqli_error($ResEquipos));
 
   $insertGoTo = "detalle_equipo.php?idEquipo=" . $_GET['idEquipo'] . "";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -85,7 +56,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/form.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>

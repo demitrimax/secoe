@@ -1,45 +1,35 @@
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $colname_det_ctto = "-1";
 if (isset($_GET['idctto'])) {
   $colname_det_ctto = $_GET['idctto'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_det_ctto = sprintf("SELECT * FROM v_det_ctto WHERE ID_CTTO = %s", GetSQLValueString($colname_det_ctto, "text"));
-$det_ctto = mysql_query($query_det_ctto, $ResEquipos) or die(mysql_error());
-$row_det_ctto = mysql_fetch_assoc($det_ctto);
-$totalRows_det_ctto = mysql_num_rows($det_ctto);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_det_ctto = sprintf("SELECT * FROM v_det_ctto WHERE ID_CTTO = %s", $colname_det_ctto);
+$det_ctto = mysqli_query($ResEquipos, $query_det_ctto) or die(mysqli_error($ResEquipos));
+$row_det_ctto = mysqli_fetch_assoc($det_ctto);
+$totalRows_det_ctto = mysqli_num_rows($det_ctto);
+
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_detcto_coments = sprintf("SELECT
+ctos_comentarios.id_coment,
+ctos_comentarios.comentario,
+ctos_comentarios.fecha,
+ctos_comentarios.cto_asociado,
+cat_tipo_comentario.tipo,
+contrato.ID_CTTO
+FROM
+ctos_comentarios
+INNER JOIN cat_tipo_comentario ON ctos_comentarios.tipo_coment = cat_tipo_comentario.id_tipo
+INNER JOIN contrato ON ctos_comentarios.cto_asociado = contrato.NO_CONTRATO
+WHERE ID_CTTO = %s
+ORDER BY
+ctos_comentarios.fecha ASC", $colname_det_ctto);
+$detcto_coments = mysqli_query($ResEquipos, $query_detcto_coments) or die(mysqli_error($ResEquipos));
+$row_detcto_coments = mysqli_fetch_assoc($detcto_coments);
+$totalRows_detcto_coments = mysqli_num_rows($detcto_coments);
 ?>
 <link rel="stylesheet" href="css/responstable.css">
 
@@ -89,11 +79,21 @@ $totalRows_det_ctto = mysql_num_rows($det_ctto);
     <td><?php echo $row_det_ctto['ESTATUS']; ?></td>
   </tr>
 </table>
-
+<?php if($row_detcto_coments>0) { ?>
+<h4>Comentarios del Contrato:<br></h4>
+<?php do { ?>
+<strong>Fecha: </strong><?php echo $row_detcto_coments['fecha']; ?><br>
+<strong><?php echo utf8_encode($row_detcto_coments['tipo']); ?>:</strong><?php echo utf8_encode($row_detcto_coments['comentario']); ?><br>
+ <?php } while ($row_detcto_coments = mysqli_fetch_assoc($detcto_coments)); ?>
+<?php } ?>
 <form id="form1" name="form1" method="post" action="catalogos/edit_contrato.php?idctto=<?php echo $colname_det_ctto; ?>">
   <input type="hidden" name="REGRESAR" value="<?php echo $_SERVER['HTTP_REFERER'];?>" />
-  <input type="submit" name="button" id="button" value="Modificar" />
+  <input type="submit" name="button" id="button" value="Modificar datos del Contrato" />
+</form>
+<form id="form2" name="form2" method="post" action="catalogos/detalle_ctto.php?no_ctto=<?php echo $row_det_ctto['NO_CONTRATO']; ?>">
+  <input type="hidden" name="REGRESAR" value="<?php echo $_SERVER['HTTP_REFERER'];?>" />
+  <input type="submit" name="button" id="button" value="Agregar Comentarios al contrato" />
 </form>
 <?php
-mysql_free_result($det_ctto);
+mysqli_free_result($det_ctto);
 ?>

@@ -45,42 +45,13 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 ?>
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_Recordset1 = "SELECT * FROM list_contratos ORDER BY F_FIN ASC";
-$Recordset1 = mysql_query($query_Recordset1, $ResEquipos) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = mysqli_query($ResEquipos, $query_Recordset1) or die(mysqli_error($ResEquipos));
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 ?>
 <!DOCTYPE html>
 <html lang="es" xmlns:spry="http://ns.adobe.com/spry">
@@ -95,7 +66,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <link href="../SpryAssets/SpryMasterDetail.css" rel="stylesheet" type="text/css">
 <link href="../SpryAssets/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -151,6 +122,7 @@ $(document).ready(function() {
 	$('#listctos')
 	.DataTable(
 	{
+		stateSave: true,
 	"language": {
                 "url": "DataTables/spanish/spanish.json"
 				}
@@ -232,7 +204,7 @@ $(document).ready(function() {
                 <td><?php echo $row_Recordset1['equipos']; ?></td>
                 <td><img src="images/sem/sem_<?php echo $row_Recordset1['SEMAFORO']; ?>.png" width="16" height="16" title="<?php echo utf8_encode($row_Recordset1['ESTATUS']); ?>"></td>
               </tr>
-              <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+              <?php } while ($row_Recordset1 = mysqli_fetch_assoc($Recordset1)); ?>
             </tbody>
           </table>
         </div>
@@ -271,5 +243,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>

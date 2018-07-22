@@ -1,51 +1,20 @@
 <?php require_once('../../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
 
 $colname_comentarios = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_comentarios = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_comentarios = sprintf("SELECT
 * FROM
 eqcomentarios
 WHERE eqcomentarios.equipo = %s
 ORDER BY
-eqcomentarios.fec_coment DESC", GetSQLValueString($colname_comentarios, "int"));
+eqcomentarios.fec_coment DESC", $colname_comentarios);
 
-$comentarios = mysql_query($query_comentarios, $ResEquipos) or die(mysql_error());
-$row_comentarios = mysql_fetch_assoc($comentarios);
+$comentarios = mysqli_query($ResEquipos, $query_comentarios) or die(mysqli_error($ResEquipos));
+$row_comentarios = mysqli_fetch_assoc($comentarios);
 
 
 ?>
@@ -59,7 +28,7 @@ $row_comentarios = mysql_fetch_assoc($comentarios);
 <link rel="shortcut icon" href="../images/favicon.ico" />
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -125,7 +94,7 @@ $(document).ready(function() {
                 <td><?php echo $row_comentarios['fec_coment']; ?></td>
                 <td><?php echo $row_comentarios['comentario']; ?></td>
               </tr>
-              <?php } while ($row_comentarios = mysql_fetch_assoc($comentarios)); ?>
+              <?php } while ($row_comentarios = mysqli_fetch_assoc($comentarios)); ?>
       </tbody>
     </table>
 </section>
@@ -133,5 +102,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($comentarios);
+mysqli_free_result($comentarios);
 ?>

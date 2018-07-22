@@ -1,41 +1,12 @@
 <?php require_once('../../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_cat_cias = "select * from cat_cias";
-$cat_cias = mysql_query($query_cat_cias, $ResEquipos) or die(mysql_error());
-$row_cat_cias = mysql_fetch_assoc($cat_cias);
-$totalRows_cat_cias = mysql_num_rows($cat_cias);
+$cat_cias = mysqli_query($ResEquipos, $query_cat_cias) or die(mysql_error($ResEquipos));
+$row_cat_cias = mysqli_fetch_assoc($cat_cias);
+$totalRows_cat_cias = mysqli_num_rows($cat_cias);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,7 +18,7 @@ $totalRows_cat_cias = mysql_num_rows($cat_cias);
 <link rel="shortcut icon" href="../images/favicon.ico" />
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -176,7 +147,7 @@ $(document).ready(function() {
                 <td><?php echo $row_cat_cias['Nacionalidad']; ?></td>
                 <td></td>
               </tr>
-              <?php } while ($row_cat_cias = mysql_fetch_assoc($cat_cias)); ?>
+              <?php } while ($row_cat_cias = mysqli_fetch_assoc($cat_cias)); ?>
       </tbody>
     </table>
     <p>&nbsp;</p>
@@ -205,5 +176,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($cat_cias);
+mysqli_free_result($cat_cias);
 ?>

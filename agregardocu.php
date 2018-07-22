@@ -1,4 +1,7 @@
 <?php
+date_default_timezone_set('America/Monterrey');
+?>
+<?php
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -45,46 +48,17 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 ?>
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $colname_Recordset1 = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_Recordset1 = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_Recordset1 = sprintf("SELECT * FROM detalleequipo WHERE idEquipo = %s", GetSQLValueString($colname_Recordset1, "text"));
-$Recordset1 = mysql_query($query_Recordset1, $ResEquipos) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_Recordset1 = sprintf("SELECT * FROM detalleequipo WHERE idEquipo = %s", $colname_Recordset1);
+$Recordset1 = mysqli_query($ResEquipos, $query_Recordset1) or die(mysql_error($ResEquipos));
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 
 
 $editFormAction = $_SERVER['PHP_SELF'];
@@ -139,17 +113,17 @@ if ($archivo != 'none') {
 				
 				$insertSQL = "INSERT INTO documentos (equipo_asociado, fecha, descripcion, nom_archivo, tipo, tamano, url_file, estatus) VALUES ('$equipo_asociado','$fecha','$descripcion','$nom_archivo','$tipo','$tamano','$url_file', '1')";	   
 	//echo $insertSQL;
-   mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+   mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysqli_query($insertSQL, $ResEquipos) or die(mysqli_error($ResEquipos));
  
- if(mysql_affected_rows($ResEquipos) > 0)
+ if(mysqli_affected_rows($ResEquipos) > 0)
   					{
 						$resultado = "Se ha subido correctamente";
 						
 						if (move_uploaded_file($_FILES['archivo']['tmp_name'],$destino)) 
 							{
         						$status = "Archivo subido: <b>".$archivo."</b>";
-        						header("Location: detalle_equipo.php?idEquipo=".$equipo_asociado);
+        						header("Location: detalle_equipo.php?idEquipo=".$equipo_asociado."&#Documentos");
 							} 
 						else 
 							{
@@ -179,7 +153,7 @@ if ($archivo != 'none') {
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/form.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -263,7 +237,7 @@ if ($archivo != 'none') {
               </tr>
               <tr valign="baseline">
                 <td align="right">Fecha:</td>
-                <td><input id="FechaDoc" name="fecha" type="date" value="<?php echo date("Y-m-d")?>"/></td>
+                <td><input id="FechaDoc" name="fecha" type="datetime" value="<?php echo date("Y-m-d h:i:s")?>"/></td>
               </tr>
               <tr valign="baseline">
                 <td align="right">Descripcion:</td>

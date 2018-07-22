@@ -1,35 +1,6 @@
 <?php require_once('../../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
@@ -37,21 +8,21 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
-  $insertSQL = sprintf("INSERT INTO contrato (F_INICIO, F_FIN, PLAZO, TARIFA, NO_CONTRATO, OBJETO_CTO, COMPANIA, EQUIPOID, ESQUEMA, ESTATUS, T_CTTO) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                       GetSQLValueString($_POST['F_INICIO'], "date"),
-                       GetSQLValueString($_POST['F_FIN'], "date"),
-                       GetSQLValueString($_POST['PLAZO'], "int"),
-                       GetSQLValueString($_POST['TARIFA'], "int"),
-                       GetSQLValueString($_POST['NO_CONTRATO'], "text"),
-                       GetSQLValueString($_POST['OBJETO_CTO'], "text"),
-                       GetSQLValueString($_POST['COMPANIA'], "int"),
-                       GetSQLValueString($_POST['EQUIPOID'], "int"),
-                       GetSQLValueString($_POST['ESQUEMA'], "int"),
-                       GetSQLValueString($_POST['ESTATUS'], "int"),
-					   GetSQLValueString($_POST['TIPOCTTO'], "int"));
+  $insertSQL = sprintf("INSERT INTO contrato (F_INICIO, F_FIN, PLAZO, TARIFA, NO_CONTRATO, OBJETO_CTO, COMPANIA, EQUIPOID, ESQUEMA, ESTATUS, T_CTTO) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                       $_POST['F_INICIO'],
+                       $_POST['F_FIN'],
+                       $_POST['PLAZO'], 
+                       $_POST['TARIFA'], 
+                       $_POST['NO_CONTRATO'], 
+                       $_POST['OBJETO_CTO'], 
+                       $_POST['COMPANIA'], 
+                       $_POST['EQUIPOID'], 
+                       $_POST['ESQUEMA'], 
+                       $_POST['ESTATUS'], 
+					   $_POST['TIPOCTTO']);
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysqli_query($ResEquipos, $insertSQL) or die(mysqli_error($ResEquipos));
 
   $insertGoTo = "../detalle_equipo.php?idEquipo=" . $_POST['EQUIPOID'] . "";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -61,39 +32,39 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
   header(sprintf("Location: %s", $insertGoTo));
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_companias = "SELECT * FROM cat_cias";
-$companias = mysql_query($query_companias, $ResEquipos) or die(mysql_error());
-$row_companias = mysql_fetch_assoc($companias);
-$totalRows_companias = mysql_num_rows($companias);
+$companias = mysqli_query($ResEquipos, $query_companias) or die(mysqli_error($ResEquipos));
+$row_companias = mysqli_fetch_assoc($companias);
+$totalRows_companias = mysqli_num_rows($companias);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_esquema = "SELECT * FROM cat_esquemacto";
-$esquema = mysql_query($query_esquema, $ResEquipos) or die(mysql_error());
-$row_esquema = mysql_fetch_assoc($esquema);
-$totalRows_esquema = mysql_num_rows($esquema);
+$esquema = mysqli_query($ResEquipos, $query_esquema) or die(mysqli_error($ResEquipos));
+$row_esquema = mysqli_fetch_assoc($esquema);
+$totalRows_esquema = mysqli_num_rows($esquema);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_estatusctto = "SELECT * FROM cat_ctostatus";
-$estatusctto = mysql_query($query_estatusctto, $ResEquipos) or die(mysql_error());
-$row_estatusctto = mysql_fetch_assoc($estatusctto);
-$totalRows_estatusctto = mysql_num_rows($estatusctto);
+$estatusctto = mysqli_query($ResEquipos, $query_estatusctto) or die(mysqli_error($ResEquipos));
+$row_estatusctto = mysqli_fetch_assoc($estatusctto);
+$totalRows_estatusctto = mysqli_num_rows($estatusctto);
 
 $colname_equipos = "-1";
 if (isset($_GET['idEquipo'])) {
   $colname_equipos = $_GET['idEquipo'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_equipos = sprintf("SELECT * FROM baseequipos WHERE idEquipo = %s", GetSQLValueString($colname_equipos, "int"));
-$equipos = mysql_query($query_equipos, $ResEquipos) or die(mysql_error());
-$row_equipos = mysql_fetch_assoc($equipos);
-$totalRows_equipos = mysql_num_rows($equipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_equipos = sprintf("SELECT * FROM baseequipos WHERE idEquipo = %s", $colname_equipos);
+$equipos = mysqli_query($ResEquipos, $query_equipos) or die(mysqli_error($ResEquipos));
+$row_equipos = mysqli_fetch_assoc($equipos);
+$totalRows_equipos = mysqli_num_rows($equipos);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_tipoctto = "SELECT * FROM cat_tctto";
-$tipoctto = mysql_query($query_tipoctto, $ResEquipos) or die(mysql_error());
-$row_tipoctto = mysql_fetch_assoc($tipoctto);
-$totalRows_tipoctto = mysql_num_rows($tipoctto);
+$tipoctto = mysqli_query($ResEquipos, $query_tipoctto) or die(mysqli_error($ResEquipos));
+$row_tipoctto = mysqli_fetch_assoc($tipoctto);
+$totalRows_tipoctto = mysqli_num_rows($tipoctto);
 
 $no_ctto = "";
 if (isset($_GET['no_ctto'])) {
@@ -117,7 +88,7 @@ if (isset($_GET['idcia'])) {
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/form.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -216,11 +187,11 @@ do {
 ?>
                 <option value="<?php echo $row_tipoctto['ID']?>"><?php echo $row_tipoctto['TIPOCTTO']?></option>
                 <?php
-} while ($row_tipoctto = mysql_fetch_assoc($tipoctto));
-  $rows = mysql_num_rows($tipoctto);
+} while ($row_tipoctto = mysqli_fetch_assoc($tipoctto));
+  $rows = mysqli_num_rows($tipoctto);
   if($rows > 0) {
-      mysql_data_seek($tipoctto, 0);
-	  $row_tipoctto = mysql_fetch_assoc($tipoctto);
+      mysqli_data_seek($tipoctto, 0);
+	  $row_tipoctto = mysqli_fetch_assoc($tipoctto);
   }
 ?>
               </select></td>
@@ -257,11 +228,11 @@ do {
 ?>
                 <option value="<?php echo $row_companias['id_cia']?>"<?php if (!(strcmp($row_companias['id_cia'], htmlentities($row_equipos['Cia'], ENT_COMPAT, 'utf-8')))) {echo "selected=\"selected\"";} ?>><?php echo $row_companias['NombreCia']?></option>
                 <?php
-} while ($row_companias = mysql_fetch_assoc($companias));
-  $rows = mysql_num_rows($companias);
+} while ($row_companias = mysqli_fetch_assoc($companias));
+  $rows = mysqli_num_rows($companias);
   if($rows > 0) {
-      mysql_data_seek($companias, 0);
-	  $row_companias = mysql_fetch_assoc($companias);
+      mysqli_data_seek($companias, 0);
+	  $row_companias = mysqli_fetch_assoc($companias);
   }
 ?>
               </select></td>
@@ -274,11 +245,11 @@ do {
 ?>
                 <option value="<?php echo $row_esquema['IDESQ']?>"><?php echo $row_esquema['ESQUEMA']?></option>
                 <?php
-} while ($row_esquema = mysql_fetch_assoc($esquema));
-  $rows = mysql_num_rows($esquema);
+} while ($row_esquema = mysqli_fetch_assoc($esquema));
+  $rows = mysqli_num_rows($esquema);
   if($rows > 0) {
-      mysql_data_seek($esquema, 0);
-	  $row_esquema = mysql_fetch_assoc($esquema);
+      mysqli_data_seek($esquema, 0);
+	  $row_esquema = mysqli_fetch_assoc($esquema);
   }
 ?>
               </select></td>
@@ -291,11 +262,11 @@ do {
 ?>
                 <option value="<?php echo $row_estatusctto['ID_STATUS']?>"><?php echo $row_estatusctto['ESTATUS']?></option>
                 <?php
-} while ($row_estatusctto = mysql_fetch_assoc($estatusctto));
-  $rows = mysql_num_rows($estatusctto);
+} while ($row_estatusctto = mysqli_fetch_assoc($estatusctto));
+  $rows = mysqli_num_rows($estatusctto);
   if($rows > 0) {
-      mysql_data_seek($estatusctto, 0);
-	  $row_estatusctto = mysql_fetch_assoc($estatusctto);
+      mysqli_data_seek($estatusctto, 0);
+	  $row_estatusctto = mysqli_fetch_assoc($estatusctto);
   }
 ?>
               </select></td>
@@ -335,11 +306,11 @@ do {
 </body>
 </html>
 <?php
-mysql_free_result($companias);
+mysqli_free_result($companias);
 
-mysql_free_result($esquema);
+mysqli_free_result($esquema);
 
-mysql_free_result($estatusctto);
+mysqli_free_result($estatusctto);
 
-mysql_free_result($equipos);
+mysqli_free_result($equipos);
 ?>

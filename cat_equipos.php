@@ -46,49 +46,20 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
 date_default_timezone_set('America/Monterrey');
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 //SUPONES QUE EL USUARIO SE LOGEO CORRECTAMENTE
  $usuario = $_SESSION['MM_Username'];
  $fechahora = date("Y-m-d H:i:s");
  $pagina_actual = $_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING'];
  $ipadress = $_SERVER['REMOTE_ADDR'];
- mysql_select_db($database_ResEquipos, $ResEquipos);
+ mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_log = "INSERT INTO registros (pagina, usuario, fechahora, ip) VALUES ('$pagina_actual', '$usuario', '$fechahora', '$ipadress')";
 //echo $query_log;
-$registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
+$registros = mysqli_query($ResEquipos, $query_log) or die(mysql_error($ResEquipos));
 
  
 //
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_CATEquipos = "SELECT
 cat_equipos.idEquipo,
 cat_equipos.CLVE_EQUIPO,
@@ -288,9 +259,9 @@ INNER JOIN cat_estatus ON cat_estatus.ID_ESTATUS = cat_equipos.ESTATUS
 LEFT JOIN cat_activos ON cat_equipos.ACTIVO = cat_activos.id_activo";
 }
 
-$CATEquipos = mysql_query($query_CATEquipos, $ResEquipos) or die(mysql_error());
-$row_CATEquipos = mysql_fetch_assoc($CATEquipos);
-$totalRows_CATEquipos = mysql_num_rows($CATEquipos);
+$CATEquipos = mysqli_query($ResEquipos, $query_CATEquipos) or die(mysqli_error($ResEquipos));
+$row_CATEquipos = mysqli_fetch_assoc($CATEquipos);
+$totalRows_CATEquipos = mysqli_num_rows($CATEquipos);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -302,7 +273,7 @@ $totalRows_CATEquipos = mysql_num_rows($CATEquipos);
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -328,34 +299,55 @@ $totalRows_CATEquipos = mysql_num_rows($CATEquipos);
 <link rel="stylesheet" media="screen" href="css/ie.css">
 <![endif]-->
 
-<link rel="stylesheet" type="text/css" href="DataTables/media/css/jquery.dataTables.css"> 
-<script type="text/javascript" charset="utf8" src="DataTables/media/js/jquery.dataTables.js"></script>
+<!-- Script para DataTables -->
+	<link rel="stylesheet" type="text/css" href="DataTables/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="DataTables/media/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="DataTables/extensions/Buttons/css/buttons.dataTables.min.css">
+	
+	<script type="text/javascript" charset="utf8" src="DataTables/media/js/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" type="text/css" href="DataTables/extensions/Responsive/css/responsive.dataTables.css"> 
 <script type="text/javascript" charset="utf8" src="DataTables/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script type="text/javascript" charset="utf8" src="DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="DataTables/extensions/Buttons/js/buttons.flash.min.js"></script>
+<script type="text/javascript" language="javascript" src="DataTables/extensions/Buttons/js/buttons.html5.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="DataTables/extensions/Buttons/js/buttons.print.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="DataTables/examples/resources/demo.js">
+	</script>
+    <script type="text/javascript" language="javascript" src="DataTables/extensions/jszip.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="DataTables/extensions/pdfmake.min.js">
+	</script>
+	<script type="text/javascript" language="javascript" src="DataTables/extensions/vfs_fonts.js">
+	</script>
 
 	
 	<script type="text/javascript" language="javascript" class="init">
 
 $(document).ready(function() {
-	// Setup - add a text input to each footer cell
+    // Setup - add a text input to each footer cell
     $('#equipost tfoot th').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
     } );
-	
-	var table = $('#equipost')
-	.addClass( 'nowrap' )
-	.DataTable(
-	{
-	stateSave: true,
-	 responsive: true,
-	"language": {
-                "url": "DataTables/spanish/spanish.json"
-				}
-	});
-	
-	 // Apply the search
+ 
+    // DataTable
+    var table = $('#equipost').DataTable({
+		dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5',
+			'print'
+        ],
+		stateSave: true,
+	 	responsive: true,
+		});
+ 
+    // Apply the search
     table.columns().every( function () {
         var that = this;
  
@@ -367,9 +359,6 @@ $(document).ready(function() {
             }
         } );
     } );
-	
-	
-	
 } );
 
 	</script>
@@ -393,7 +382,7 @@ $(document).ready(function() {
     <div class="row">
       <div class="grid_12 rel">
         <h1>
-          <a href="index.html">
+          <a href="index.php">
             <img src="images/logo2.png" alt="Logo alt">
           </a>
         </h1>
@@ -410,7 +399,7 @@ $(document).ready(function() {
           <div class="navigation ">
             <nav>
               <ul class="sf-menu">
-               <li class="current"><a href="index.html">Inicio</a></li>
+               <li class="current"><a href="index.php">Inicio</a></li>
                <li><a href="about.html">Acerca de</a></li>
                <li><a href="services.html">Objetivos</a></li>
                <li><a href="http://intranet.pemex.com/os/pep/unp/Paginas/default.aspx">Intranet PPS</a></li>
@@ -437,30 +426,18 @@ $(document).ready(function() {
          <input type="button" value="Operando" onClick="location='cat_equipos.php?EqOperando=1'">
          <input type="button" value="de Baja" onClick="location='cat_equipos.php?EqBaja=1'">
          <input type="button" value="Eq. Pemex" onClick="location='cat_equipos.php?EqPemex=1'">
-         <input type="button" value="Exportar a Excel" class="botonExcel">
     <table class="display" id="equipost" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <td>No. Equipo</td>
-              <td>Equipo</td>
-              <td>Tipo equipo</td>
-              <td>Características</td>
-              <td>Compañía</td>
-              <td>Activo</td>
-              <td>Estatus </td>
+              <th>No. Equipo</th>
+              <th>Equipo</th>
+              <th>Tipo equipo</th>
+              <th>Características</th>
+              <th>Compañía</th>
+              <th>Activo</th>
+              <th>Estatus </th>
             </tr>
       </thead>
-      <tfoot>
-            <tr>
-              <td>No. Equipo</td>
-              <td>Equipo</td>
-              <td>Tipo equipo</td>
-              <td>Características</td>
-              <td>Compañía</td>
-              <td>Activo</td>
-              <td>Estatus </td>
-            </tr>
-       </tfoot>
        <tbody>
             <?php do { ?>
               <tr>
@@ -472,11 +449,22 @@ $(document).ready(function() {
                 <td title="<?php echo $row_CATEquipos['ACTIVO']; ?>"> <?php echo $row_CATEquipos['ACTIVO_CORTO']; ?></td>
                 <td> <img src="images/sem/sem_<?php echo $row_CATEquipos['SEMAFORO']; ?>.png" width="16" height="16" title="<?php echo utf8_encode($row_CATEquipos['DESCRIPCION']); ?>"> <?php echo utf8_encode($row_CATEquipos['ESTATUS']); ?> </td>
               </tr>
-              <?php } while ($row_CATEquipos = mysql_fetch_assoc($CATEquipos)); ?>
+              <?php } while ($row_CATEquipos = mysqli_fetch_assoc($CATEquipos)); ?>
       </tbody>
+      <tfoot>
+            <tr>
+              <td></td>
+              <th>Equipo</th>
+              <th>Tipo equipo</th>
+              <th>Características</th>
+              <th>Compañía</th>
+              <th>Activo</th>
+              <th>Estatus </th>
+            </tr>
+       </tfoot>
     </table>
     <p>&nbsp;</p>
-          <p><a href="Add_Equipo.php">Agregar Equipos</a> | <a href="cat_equipos.php?EqBaja=1" >Equipos de Baja</a> | <a href="cat_equipos.php?EqOperando=1" >Equipos Operando</a> | <a href="cat_equipos.php?EqDocumen=1" >En Documentación</a> | <a href="cat_equipos.php?Inactivos=1" >Inactivos </a> |<a href="cat_equipos.php?todos=1">Todos</a>| <a href="catalogoequipos.php">Base Plana</a>|</p>
+          <p><a href="Add_Equipo.php">Agregar Equipos</a> | <a href="cat_equipos.php?EqBaja=1" >Equipos de Baja</a> | <a href="cat_equipos.php?EqOperando=1" >Equipos Operando</a> | <a href="cat_equipos.php?EqDocumen=1" >En Documentación</a> | <a href="cat_equipos.php?Inactivos=1" >Inactivos </a> |<a href="cat_equipos.php?todos=1">Todos</a>| <a href="catalogoequipos.php">Base Plana</a> | <a href="compara_status.php">Comparar Estatus GME</a> | </p>
 <form action="ExportExcel.php" method="post" target="_blank" id="FormularioExportacion">
 <input type="hidden" id="datos_a_enviar" name="datos_a_enviar" />
 </form> 
@@ -498,11 +486,12 @@ $(document).ready(function() {
           <div class="sub-copy">Website diseñado por <a href="http://intranet.pemex.com/os/pep/unp/gep/Paginas/Home.aspx" rel="nofollow">Gerencia de Estrategias y Planes</a></div>
       </div>
     </div>
+  </div>
   </div>  
 </footer>
 <a href="#" id="toTop" class="fa fa-chevron-up"></a>
 </body>
 </html>
 <?php
-mysql_free_result($CATEquipos);
+mysqli_free_result($CATEquipos);
 ?>

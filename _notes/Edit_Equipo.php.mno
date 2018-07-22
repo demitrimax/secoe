@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_tipoequipo" value="name:idtequipo;datatype:int,name:tipoequipo;datatype:string,name:Tipo;datatype:string" />
+	<infoitem key="UD_catcias" value="name:id_cia;datatype:int,name:NombreCia;datatype:string,name:InicialCia;datatype:string" />
+	<infoitem key="UD_cat_estatus" value="name:ID_ESTATUS;datatype:int,name:ESTATUS;datatype:string" />
+	<infoitem key="UD_cat_clase" value="name:id_clase;datatype:int,name:clase;datatype:string" />
+	<infoitem key="UD_caracteristicas" value="name:IdCar;datatype:int,name:Caracteristicas;datatype:string,name:orden;datatype:int" />
+	<infoitem key="UD_Equipos" value="name:idEquipo;datatype:int,name:CLVE_EQUIPO;datatype:string,name:Equipo;datatype:string,name:TEquipo;datatype:int,name:Caracteristicas;datatype:int,name:Cia;datatype:int,name:marcamalacate;datatype:string,name:HP;datatype:string,name:TA;datatype:string,name:CAPPERF;datatype:string,name:SECCSINDICAL;datatype:string,name:ESTATUS;datatype:int,name:EFICIENCIA;datatype:string,name:CLASE;datatype:int,name:ACTIVIDAD;datatype:int,name:UBICACION;datatype:int,name:ANO_COMPRA;datatype:string,name:ANO_CONSTR;datatype:string" />
+</info>

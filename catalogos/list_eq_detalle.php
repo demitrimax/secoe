@@ -217,12 +217,12 @@ if ((!$subdir==NULL) and (!$tequipo==NULL)) {
 
 }
 		//echo $condicion.'<br>';
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_equipos = sprintf("SELECT cat_equipos.idEquipo, cat_equipos.CLVE_EQUIPO, cat_equipos.Equipo, cat_tipoequipo.Tipo, cat_equipocaracteristicas.Caracteristicas, cat_cias.InicialCia, cat_cias.NombreCia, cat_equipos.marcamalacate, cat_equipos.HP, cat_equipos.TA, cat_equipos.CAPPERF, cat_equipos.SECCSINDICAL, cat_estatus.SEMAFORO, cat_estatus.ESTATUS, cat_estatus.DESCRIPCION, cat_activos.ACTIVO_CORTO, cat_activos.ACTIVO, cat_equipos.TEquipo AS CLV_TEQUIPO, cat_equipos.Cia AS CLV_CIA, cat_equipos.ESTATUS AS CLV_ESTATUS, cat_equipos.ACTIVO AS CLV_ACTIVO, cat_equipos.SUBDIR AS CLV_SUBDIR FROM cat_equipos INNER JOIN cat_tipoequipo ON cat_tipoequipo.idtequipo = cat_equipos.TEquipo INNER JOIN cat_equipocaracteristicas ON cat_equipocaracteristicas.IdCar = cat_equipos.Caracteristicas INNER JOIN cat_cias ON cat_cias.id_cia = cat_equipos.Cia INNER JOIN cat_estatus ON cat_estatus.ID_ESTATUS = cat_equipos.ESTATUS LEFT JOIN cat_activos ON cat_equipos.ACTIVO = cat_activos.id_activo %s ;", $condicion);
 //echo $query_equipos;
-$equipos = mysql_query($query_equipos, $ResEquipos) or die(mysql_error());
-$row_equipos = mysql_fetch_assoc($equipos);
-$totalRows_equipos = mysql_num_rows($equipos);
+$equipos = mysql_query($query_equipos, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_equipos = mysqli_fetch_assoc($equipos);
+$totalRows_equipos = mysqli_num_rows($equipos);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -354,7 +354,7 @@ $(document).ready(function() {
                 <td title="<?php echo $row_equipos['ACTIVO']; ?>"> <?php echo $row_equipos['ACTIVO_CORTO']; ?></td>
                 <td> <img src="../images/sem/sem_<?php echo $row_equipos['SEMAFORO']; ?>.png" width="16" height="16" title="<?php echo utf8_encode($row_equipos['DESCRIPCION']); ?>"></td>
               </tr>
-              <?php } while ($row_equipos = mysql_fetch_assoc($equipos)); ?>
+              <?php } while ($row_equipos = mysqli_fetch_assoc($equipos)); ?>
       </tbody>
     </table>
     <!-- end .content --></div>
@@ -362,5 +362,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($equipos);
+mysqli_free_result($equipos);
 ?>

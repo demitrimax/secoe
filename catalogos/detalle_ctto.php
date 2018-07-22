@@ -1,52 +1,21 @@
 <?php require_once('../../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
 
 $colname_det_ctto = "-1";
 if (isset($_GET['no_ctto'])) {
   $colname_det_ctto = $_GET['no_ctto'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_det_ctto = sprintf("SELECT * FROM list_contratos WHERE NO_CONTRATO = %s", GetSQLValueString($colname_det_ctto, "text"));
-$det_ctto = mysql_query($query_det_ctto, $ResEquipos) or die(mysql_error());
-$row_det_ctto = mysql_fetch_assoc($det_ctto);
-$totalRows_det_ctto = mysql_num_rows($det_ctto);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_det_ctto = sprintf("SELECT * FROM list_contratos WHERE NO_CONTRATO = %s", $colname_det_ctto);
+$det_ctto = mysqli_query($ResEquipos, $query_det_ctto) or die(mysqli_error($ResEquipos));
+$row_det_ctto = mysqli_fetch_assoc($det_ctto);
+$totalRows_det_ctto = mysqli_num_rows($det_ctto);
 
 $colname_comentario_ctto = "-1";
 if (isset($_GET['no_ctto'])) {
   $colname_comentario_ctto = $_GET['no_ctto'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_comentario_ctto = sprintf("SELECT
 ctos_comentarios.id_coment,
 ctos_comentarios.comentario,
@@ -56,16 +25,17 @@ cat_tipo_comentario.tipo
 FROM
 ctos_comentarios
 INNER JOIN cat_tipo_comentario ON ctos_comentarios.tipo_coment = cat_tipo_comentario.id_tipo 
-WHERE cto_asociado = %s", GetSQLValueString($colname_comentario_ctto, "int"));
-$comentario_ctto = mysql_query($query_comentario_ctto, $ResEquipos) or die(mysql_error());
-$row_comentario_ctto = mysql_fetch_assoc($comentario_ctto);
-$totalRows_comentario_ctto = mysql_num_rows($comentario_ctto);
+WHERE cto_asociado = %s
+ORDER BY ctos_comentarios.fecha DESC", $colname_comentario_ctto);
+$comentario_ctto = mysqli_query($ResEquipos, $query_comentario_ctto) or die(mysqli_error($ResEquipos));
+$row_comentario_ctto = mysqli_fetch_assoc($comentario_ctto);
+$totalRows_comentario_ctto = mysqli_num_rows($comentario_ctto);
 
 $colname_ct_cttos = "-1";
 if (isset($_GET['no_ctto'])) {
   $colname_ct_cttos = $_GET['no_ctto'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_ct_cttos = sprintf("SELECT
 contrato.ID_CTTO,
 contrato.F_INICIO,
@@ -91,15 +61,20 @@ LEFT JOIN cat_esquemacto ON contrato.ESQUEMA = cat_esquemacto.IDESQ
 LEFT JOIN cat_cias ON contrato.COMPANIA = cat_cias.id_cia
 LEFT JOIN cat_ctostatus ON contrato.ESTATUS = cat_ctostatus.ID_STATUS
 LEFT JOIN cat_tctto ON contrato.T_CTTO = cat_tctto.ID 
-WHERE NO_CONTRATO = %s", GetSQLValueString($colname_ct_cttos, "text"));
-$ct_cttos = mysql_query($query_ct_cttos, $ResEquipos) or die(mysql_error());
-$row_ct_cttos = mysql_fetch_assoc($ct_cttos);
-$totalRows_ct_cttos = mysql_num_rows($ct_cttos);
+WHERE NO_CONTRATO = %s", $colname_ct_cttos);
+$ct_cttos = mysqli_query($ResEquipos, $query_ct_cttos) or die(mysqli_error($ResEquipos));
+$row_ct_cttos = mysqli_fetch_assoc($ct_cttos);
+$totalRows_ct_cttos = mysqli_num_rows($ct_cttos);
+
+$RegresarLink = "../contratos.php";
+if (isset($_POST['REGRESAR'])) {
+	$RegresarLink=$_POST['REGRESAR'];	
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es" xmlns:spry="http://ns.adobe.com/spry">
 <head>
-<title>Detalle del Contrato</title>
+<title>Detalle del Contrato <?php echo $row_det_ctto['NO_CONTRATO']; ?></title>
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no" />
 <link rel="icon" href="../images/favicon.ico">
@@ -109,7 +84,7 @@ $totalRows_ct_cttos = mysql_num_rows($ct_cttos);
 <link href="file:///D|/xampp/htdocs/SECOE/SpryAssets/SpryMasterDetail.css" rel="stylesheet" type="text/css">
 <link href="file:///D|/xampp/htdocs/SECOE/SpryAssets/SpryCollapsiblePanel.css" rel="stylesheet" type="text/css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -204,7 +179,7 @@ $(document).ready( function () {
           <div class="navigation ">
             <nav>
               <ul class="sf-menu">
-               <li class="current">Detalle del contrato</li>
+               <li class="current">Detalle del contrato <?php echo $row_det_ctto['NO_CONTRATO']; ?></li>
              </ul>
             </nav>
             <div class="clear"></div>
@@ -302,7 +277,7 @@ $(document).ready( function () {
       <td><?php echo $row_ct_cttos['ACTIVO']; ?></td>
       <td><?php echo $row_ct_cttos['ESTATUS']; ?></td>
     </tr>
-    <?php } while ($row_ct_cttos = mysql_fetch_assoc($ct_cttos)); ?>
+    <?php } while ($row_ct_cttos = mysqli_fetch_assoc($ct_cttos)); ?>
     </tbody>
 </table>
 
@@ -324,7 +299,7 @@ $(document).ready( function () {
               <td><?php echo $row_comentario_ctto['fecha']; ?></td>
               <td><?php echo $row_comentario_ctto['comentario']; ?></td>
             </tr>
-            <?php } while ($row_comentario_ctto = mysql_fetch_assoc($comentario_ctto)); ?>
+            <?php } while ($row_comentario_ctto = mysqli_fetch_assoc($comentario_ctto)); ?>
         </tbody>
         </table>
 </div>
@@ -334,7 +309,7 @@ $(document).ready( function () {
     </div>
     
       <div class="grid_12">
-    <a href="../contratos.php">Regresar</a> | <a href="agregar_coment_ctto.php?no_ctto=<?php echo $row_det_ctto['NO_CONTRATO']; ?>">Agregar Comentario</a></div>
+    <a href="<?php echo $RegresarLink; ?>">Regresar</a> | <a href="agregar_coment_ctto.php?no_ctto=<?php echo $row_det_ctto['NO_CONTRATO']; ?>">Agregar Comentario</a></div>
 
         <h3></h3>
          <div id="banner" class="container" ></div>
@@ -363,9 +338,9 @@ $(document).ready( function () {
 </body>
 </html>
 <?php
-mysql_free_result($det_ctto);
+mysqli_free_result($det_ctto);
 
-mysql_free_result($comentario_ctto);
+mysqli_free_result($comentario_ctto);
 
-mysql_free_result($ct_cttos);
+mysqli_free_result($ct_cttos);
 ?>

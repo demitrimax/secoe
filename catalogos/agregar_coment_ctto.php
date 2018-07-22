@@ -1,35 +1,5 @@
 <?php require_once('../../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
@@ -38,13 +8,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
   $insertSQL = sprintf("INSERT INTO ctos_comentarios (tipo_coment, comentario, fecha, cto_asociado) VALUES (%s, %s, %s, %s)",
-                       GetSQLValueString($_POST['tcomentario'], "int"),
-                       GetSQLValueString($_POST['Comentario'], "text"),
-                       GetSQLValueString($_POST['fecha'], "date"),
-                       GetSQLValueString($_POST['id_contrato'], "int"));
+                       $_POST['tcomentario'], 
+                       $_POST['Comentario'], 
+                       $_POST['fecha'], 
+                       $_POST['id_contrato']);
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($insertSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysqli_query($ResEquipos, $insertSQL) or die(mysqli_error($ResEquipos));
 
   $insertGoTo = "detalle_ctto.php?idctto=".$_GET['no_ctto'];
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -54,11 +24,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
   header(sprintf("Location: %s", $insertGoTo));
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_tipocoment = "SELECT * FROM cat_tipo_comentario";
-$tipocoment = mysql_query($query_tipocoment, $ResEquipos) or die(mysql_error());
-$row_tipocoment = mysql_fetch_assoc($tipocoment);
-$totalRows_tipocoment = mysql_num_rows($tipocoment);
+$tipocoment = mysqli_query($ResEquipos, $query_tipocoment) or die(mysqli_error($ResEquipos));
+$row_tipocoment = mysqli_fetch_assoc($tipocoment);
+$totalRows_tipocoment = mysqli_num_rows($tipocoment);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,7 +41,7 @@ $totalRows_tipocoment = mysql_num_rows($tipocoment);
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/form.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -162,11 +132,11 @@ do {
 ?>
             <option value="<?php echo $row_tipocoment['id_tipo']?>"><?php echo utf8_encode($row_tipocoment['tipo'])?></option>
             <?php
-} while ($row_tipocoment = mysql_fetch_assoc($tipocoment));
-  $rows = mysql_num_rows($tipocoment);
+} while ($row_tipocoment = mysqli_fetch_assoc($tipocoment));
+  $rows = mysqli_num_rows($tipocoment);
   if($rows > 0) {
-      mysql_data_seek($tipocoment, 0);
-	  $row_tipocoment = mysql_fetch_assoc($tipocoment);
+      mysqli_data_seek($tipocoment, 0);
+	  $row_tipocoment = mysqli_fetch_assoc($tipocoment);
   }
 ?>
           </select></td>
@@ -220,5 +190,5 @@ do {
 </body>
 </html>
 <?php
-mysql_free_result($tipocoment);
+mysqli_free_result($tipocoment);
 ?>

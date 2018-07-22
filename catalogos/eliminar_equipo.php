@@ -39,17 +39,17 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
  $fechahora = date("Y-m-d H:i:s");
  $pagina_actual = $_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING'];
  $ipadress = $_SERVER['REMOTE_ADDR'];
- mysql_select_db($database_ResEquipos, $ResEquipos);
+ mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_log = "INSERT INTO registros (pagina, usuario, fechahora, ip) VALUES ('$pagina_actual', '$usuario', '$fechahora', '$ipadress')";
 //echo $query_log;
-$registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
+$registros = mysql_query($query_log, $ResEquipos) or die(mysqli_error($ResEquipos));
 
 if ((isset($_GET['idEquipo'])) && ($_GET['idEquipo'] != "")) {
   $deleteSQL = sprintf("UPDATE cat_equipos SET estatus = 9 WHERE idEquipo=%s",
                        GetSQLValueString($_GET['idEquipo'], "int"));
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($deleteSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysql_query($deleteSQL, $ResEquipos) or die(mysqli_error($ResEquipos));
 
   $deleteGoTo = "../cat_equipos.php";
   if (isset($_SERVER['QUERY_STRING'])) {

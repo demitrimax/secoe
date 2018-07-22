@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_comentarios" value="name:id_com;datatype:int,name:equipo;datatype:string,name:comentario;datatype:blob,name:fec_coment;datatype:datetime,name:estatus_operativo;datatype:string,name:subdireccion;datatype:int" />
+	<infoitem key="UD_Equipos" value="name:idEquipo;datatype:int,name:CLVE_EQUIPO;datatype:string,name:Equipo;datatype:string,name:TEquipo;datatype:int,name:Caracteristicas;datatype:int,name:Cia;datatype:int,name:marcamalacate;datatype:string,name:HP;datatype:string,name:TA;datatype:string,name:CAPPERF;datatype:string,name:SECCSINDICAL;datatype:string,name:ESTATUS;datatype:int,name:EFICIENCIA;datatype:string,name:CLASE;datatype:int,name:ACTIVIDAD;datatype:int,name:UBICACION;datatype:int,name:ANO_COMPRA;datatype:string,name:ANO_CONSTR;datatype:string" />
+	<infoitem key="UD_StatusOP" value="name:id_statusop;datatype:int,name:estatusop;datatype:string,name:semaforo;datatype:string" />
+	<infoitem key="UD_StatusOp" value="name:id_statusop;datatype:int,name:estatusop;datatype:string,name:semaforo;datatype:string" />
+</info>

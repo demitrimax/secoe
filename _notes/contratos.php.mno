@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:NO_CONTRATO;datatype:string,name:TARIFA;datatype:int,name:PLAZO;datatype:int,name:F_FIN;datatype:date,name:F_INICIO;datatype:date,name:EQUIPOID;datatype:string,name:ESQUEMA;datatype:string,name:NombreCia;datatype:string,name:Equipo;datatype:string,name:Caracteristicas;datatype:string" />
+	<infoitem key="UD_comentarios" value="name:id_com;datatype:int,name:equipo;datatype:string,name:comentario;datatype:blob,name:fec_coment;datatype:datetime" />
+	<infoitem key="UD_documentos" value="name:id_doc;datatype:int,name:equipo_asociado;datatype:int,name:fecha;datatype:datetime,name:descripcion;datatype:blob,name:nom_archivo;datatype:string,name:archivo;datatype:blob,name:tipo;datatype:string,name:tamano;datatype:int,name:url_file;datatype:string" />
+	<infoitem key="UD_cronograma" value="name:id;datatype:int,name:fechacro;datatype:date,name:cat_crono;datatype:string" />
+</info>

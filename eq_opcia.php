@@ -45,59 +45,30 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 ?>
 <?php require_once('../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_CiasEQ = "SELECT
 cat_cias.id_cia AS id_cia,
 cat_cias.NombreCia AS NombreCia,
 cat_cias.InicialCia AS InicialCia,
 Count(cat_equipos.Equipo) AS CANT_EQPS
 from (cat_cias join cat_equipos on((cat_cias.id_cia = cat_equipos.Cia)))
-where (cat_equipos.ESTATUS = 1 OR cat_equipos.ESTATUS = 2 OR cat_equipos.ESTATUS = 5)
+where cat_equipos.ESTATUS IN (1,2,5,6)
 group by cat_cias.NombreCia";
-$CiasEQ = mysql_query($query_CiasEQ, $ResEquipos) or die(mysql_error());
-$row_CiasEQ = mysql_fetch_assoc($CiasEQ);
-$totalRows_CiasEQ = mysql_num_rows($CiasEQ);
+$CiasEQ = mysqli_query($ResEquipos, $query_CiasEQ) or die(mysqli_error($ResEquipos));
+$row_CiasEQ = mysqli_fetch_assoc($CiasEQ);
+$totalRows_CiasEQ = mysqli_num_rows($CiasEQ);
 
 //SUPONES QUE EL USUARIO SE LOGEO CORRECTAMENTE
  $usuario = $_SESSION['MM_Username'];
  $fechahora = date("Y-m-d H:i:s");
  $pagina_actual = $_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING'];
  $ipadress = $_SERVER['REMOTE_ADDR'];
- mysql_select_db($database_ResEquipos, $ResEquipos);
+ mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_log = "INSERT INTO registros (pagina, usuario, fechahora, ip) VALUES ('$pagina_actual', '$usuario', '$fechahora', '$ipadress')";
 //echo $query_log;
-$registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
+$registros = mysqli_query($ResEquipos, $query_log) or die(mysqli_error($ResEquipos));
 
 ?>
 <!DOCTYPE html>
@@ -110,7 +81,7 @@ $registros = mysql_query($query_log, $ResEquipos) or die(mysql_error());
 <link rel="shortcut icon" href="images/favicon.ico" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -239,7 +210,7 @@ $(document).ready(function() {
                 <td><a href="eqdcia_v2.php?idCia=<?php echo $row_CiasEQ['id_cia']; ?>&lightbox[iframe]=true&amp;lightbox[width]=700&amp;lightbox[height]=600" class="lightbox"><?php echo $row_CiasEQ['CANT_EQPS']; ?></a></td>
                 <td></td>
               </tr>
-              <?php } while ($row_CiasEQ = mysql_fetch_assoc($CiasEQ)); ?>
+              <?php } while ($row_CiasEQ = mysqli_fetch_assoc($CiasEQ)); ?>
       </tbody>
     </table>
     <p>&nbsp;</p>
@@ -268,5 +239,5 @@ $(document).ready(function() {
 </body>
 </html>
 <?php
-mysql_free_result($CiasEQ);
+mysqli_free_result($CiasEQ);
 ?>

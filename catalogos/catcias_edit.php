@@ -1,35 +1,5 @@
 <?php require_once('../../Connections/ResEquipos.php'); ?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
 
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
@@ -38,17 +8,17 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   $updateSQL = sprintf("UPDATE cat_cias SET NombreCia=%s, InicialCia=%s, Direccion=%s, Telefono1=%s, Telefono2=%s, Observaciones=%s, Nacionalidad=%s WHERE id_cia=%s",
-                       GetSQLValueString($_POST['NombreCia'], "text"),
-                       GetSQLValueString($_POST['InicialCia'], "text"),
-                       GetSQLValueString($_POST['Direccion'], "text"),
-                       GetSQLValueString($_POST['Telefono1'], "text"),
-                       GetSQLValueString($_POST['Telefono2'], "text"),
-                       GetSQLValueString($_POST['Observaciones'], "text"),
-                       GetSQLValueString($_POST['Nacionalidad'], "text"),
-                       GetSQLValueString($_POST['id_cia'], "int"));
+                       $_POST['NombreCia'], 
+                       $_POST['InicialCia'], 
+                       $_POST['Direccion'], 
+                       $_POST['Telefono1'], 
+                       $_POST['Telefono2'], 
+                       $_POST['Observaciones'], 
+                       $_POST['Nacionalidad'], 
+                       $_POST['id_cia']);
 
-  mysql_select_db($database_ResEquipos, $ResEquipos);
-  $Result1 = mysql_query($updateSQL, $ResEquipos) or die(mysql_error());
+  mysqli_select_db($ResEquipos, $database_ResEquipos);
+  $Result1 = mysqli_query($ResEquipos, $updateSQL) or die(mysql_error($ResEquipos));
 
   $updateGoTo = "cat_companias.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -63,11 +33,11 @@ $colname_cat_cias = "-1";
 if (isset($_GET['id_cia'])) {
   $colname_cat_cias = $_GET['id_cia'];
 }
-mysql_select_db($database_ResEquipos, $ResEquipos);
-$query_cat_cias = sprintf("SELECT * FROM cat_cias WHERE id_cia = %s", GetSQLValueString($colname_cat_cias, "int"));
-$cat_cias = mysql_query($query_cat_cias, $ResEquipos) or die(mysql_error());
-$row_cat_cias = mysql_fetch_assoc($cat_cias);
-$totalRows_cat_cias = mysql_num_rows($cat_cias);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
+$query_cat_cias = sprintf("SELECT * FROM cat_cias WHERE id_cia = %s", $colname_cat_cias);
+$cat_cias = mysqli_query($ResEquipos, $query_cat_cias) or die(mysql_error($ResEquipos));
+$row_cat_cias = mysqli_fetch_assoc($cat_cias);
+$totalRows_cat_cias = mysqli_num_rows($cat_cias);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,7 +50,7 @@ $totalRows_cat_cias = mysql_num_rows($cat_cias);
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/form.css">
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery-migrate-1.1.1.js"></script>
+<script src="../js/jquery-migrate-1.4.1.js"></script>
 <script src="../js/jquery.easing.1.3.js"></script>
 <script src="../js/script.js"></script> 
 <script src="../js/superfish.js"></script>
@@ -225,5 +195,5 @@ $totalRows_cat_cias = mysql_num_rows($cat_cias);
 </body>
 </html>
 <?php
-mysql_free_result($cat_cias);
+mysqli_free_result($cat_cias);
 ?>

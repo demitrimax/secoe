@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_companias" value="name:id_cia;datatype:int,name:NombreCia;datatype:string,name:InicialCia;datatype:string,name:Direccion;datatype:string,name:Telefono1;datatype:string,name:Telefono2;datatype:string,name:Observaciones;datatype:blob,name:Nacionalidad;datatype:string" />
+	<infoitem key="UD_esquema" value="name:IDESQ;datatype:int,name:ESQUEMA;datatype:string,name:ESQ_CORTO;datatype:string,name:DESCRIPCION;datatype:string" />
+	<infoitem key="UD_estatusctto" value="name:ID_STATUS;datatype:int,name:ESTATUS;datatype:string,name:CV_STUS;datatype:string,name:SEMAFORO;datatype:string" />
+	<infoitem key="UD_contratos" value="name:ID_CTTO;datatype:int,name:F_INICIO;datatype:date,name:F_FIN;datatype:date,name:PLAZO;datatype:int,name:TARIFA;datatype:int,name:NO_CONTRATO;datatype:string,name:OBJETO_CTO;datatype:blob,name:COMPANIA;datatype:int,name:EQUIPOID;datatype:int,name:ESQUEMA;datatype:int,name:ACTIVO;datatype:string,name:ESTATUS;datatype:string,name:T_CTTO;datatype:int" />
+	<infoitem key="UD_tipoctto" value="name:ID;datatype:int,name:TIPOCTTO;datatype:string,name:DESCRIPCION;datatype:string" />
+</info>

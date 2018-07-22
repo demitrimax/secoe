@@ -1,0 +1,110 @@
+<data>
+  <variable name="DatosRec">
+    <row>
+    	<column>A/E PMX</column>
+    <column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>3</column>
+<column>3</column>
+<column>3</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+    </row>
+    <row>
+    	<column>A/E CIA</column>
+    <column>16</column>
+<column>16</column>
+<column>16</column>
+<column>16</column>
+<column>16</column>
+<column>16</column>
+<column>16</column>
+<column>16</column>
+<column>15</column>
+<column>13</column>
+<column>15</column>
+<column>14</column>
+    </row>
+    <row>
+    	<column>MOD CIA</column>
+    <column>13</column>
+<column>15</column>
+<column>15</column>
+<column>13</column>
+<column>13</column>
+<column>12</column>
+<column>13</column>
+<column>12</column>
+<column>13</column>
+<column>12</column>
+<column>13</column>
+<column>13</column>
+    </row>
+    <row>
+    	<column>EMPAQUETADOS</column>
+    <column>5</column>
+<column>7</column>
+<column>6</column>
+<column>6</column>
+<column>5</column>
+<column>5</column>
+<column>7</column>
+<column>7</column>
+<column>7</column>
+<column>6</column>
+<column>7</column>
+<column>7</column>
+    </row>
+    <row>
+    	<column>TERRESTRE PMX</column>
+    <column>3</column>
+<column>3</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+<column>2</column>
+    </row>
+    <row>
+    	<column>TERRESTRE CIA</column>
+    <column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+    </row>
+    <row>
+    	<column>SEMISUMERGIBLES</column>
+    <column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+<column>0</column>
+    </row>
+   </variable>
+ </data>
+	

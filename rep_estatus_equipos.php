@@ -31,23 +31,23 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_operando = "SELECT * FROM detalleequipo WHERE estatusid = 1";
-$operando = mysql_query($query_operando, $ResEquipos) or die(mysql_error());
-$row_operando = mysql_fetch_assoc($operando);
-$totalRows_operando = mysql_num_rows($operando);
+$operando = mysql_query($query_operando, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_operando = mysqli_fetch_assoc($operando);
+$totalRows_operando = mysqli_num_rows($operando);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_inactivos = "SELECT * FROM detalleequipo WHERE estatusid = 2";
-$inactivos = mysql_query($query_inactivos, $ResEquipos) or die(mysql_error());
-$row_inactivos = mysql_fetch_assoc($inactivos);
-$totalRows_inactivos = mysql_num_rows($inactivos);
+$inactivos = mysql_query($query_inactivos, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_inactivos = mysqli_fetch_assoc($inactivos);
+$totalRows_inactivos = mysqli_num_rows($inactivos);
 
-mysql_select_db($database_ResEquipos, $ResEquipos);
+mysqli_select_db($ResEquipos, $database_ResEquipos);
 $query_baja = "SELECT * FROM detalleequipo WHERE estatusid = 3";
-$baja = mysql_query($query_baja, $ResEquipos) or die(mysql_error());
-$row_baja = mysql_fetch_assoc($baja);
-$totalRows_baja = mysql_num_rows($baja);
+$baja = mysql_query($query_baja, $ResEquipos) or die(mysqli_error($ResEquipos));
+$row_baja = mysqli_fetch_assoc($baja);
+$totalRows_baja = mysqli_num_rows($baja);
 ?>
 <!DOCTYPE html>
 <html lang="es" xmlns:spry="http://ns.adobe.com/spry">
@@ -60,7 +60,7 @@ $totalRows_baja = mysql_num_rows($baja);
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responstable.css">
 <script src="js/jquery.js"></script>
-<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/jquery-migrate-1.4.1.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/script.js"></script> 
 <script src="js/superfish.js"></script>
@@ -129,7 +129,7 @@ tr.details td.details-control {
     <div class="row">
       <div class="grid_12 rel">
         <h1>
-          <a href="index.html">
+          <a href="index.php">
             <img src="images/logo2.png" alt="Logo alt">
           </a>
         </h1>
@@ -178,7 +178,7 @@ tr.details td.details-control {
         	<ul>
             <?php do { ?>
         		<li><?php echo $row_operando['Equipo']; ?></li>
-                <?php } while ($row_operando = mysql_fetch_assoc($operando)); ?>
+                <?php } while ($row_operando = mysqli_fetch_assoc($operando)); ?>
         	</ul>       
         </div>
       </div>
@@ -253,5 +253,5 @@ tr.details td.details-control {
 </body>
 </html>
 <?php
-mysql_free_result($operando);
+mysqli_free_result($operando);
 ?>
